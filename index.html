@@ -102,6 +102,7 @@
     font-weight: 650;
   }
   .lede, .note { margin: 0.85rem 0; max-width: 42rem; }
+  .note { font-size: 16px; line-height: 1.4; color: var(--muted); }
   .actions {
     display: flex;
     flex-direction: column;
@@ -294,7 +295,7 @@
     <div id="error-banner" class="banner" hidden></div>
     <div class="stats" id="stats" aria-live="polite"></div>
     <p class="checked" id="checked-line">
-      <span class="when-label" id="checked-label">Last checked</span>
+      <span class="when-label" id="checked-label">List checked</span>
       <span class="when-time" id="checked-abs">…</span>
       <span class="when-rel" id="checked-rel"></span>
     </p>
@@ -302,7 +303,7 @@
     <div id="since"></div>
     <p class="pill" id="pill">Loading the latest check…</p>
     <p class="lede" id="lede">Model Y and Cybercab counts from the public Texas DMV automated vehicle list, plus every other operator on that list.</p>
-    <p class="note">Checks are scheduled every 5 minutes. GitHub’s scheduler sometimes starts a few minutes late, so a new vehicle can take longer than 5 minutes to show up here. This page reloads its data file on its own every 5 minutes.</p>
+    <p class="note">This page refreshes every 10 seconds. The official list is re-checked by GitHub about every 5 minutes, sometimes later. The List checked time is what shows how fresh the data is.</p>
     <div class="actions">
       <a class="button" id="tesla-link" href="https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles">Tesla vehicles on the Texas DMV list</a>
       <button type="button" id="refresh">Refresh now</button>
@@ -323,12 +324,12 @@
     <p>Source: <a href="https://txmccs.txdmv.gov/automated-vehicles/">Texas DMV automated vehicle lookup</a>. Counts come from that public feed. No login is used.</p>
   </footer>
 </div>
-<noscript>This page needs JavaScript to load <code>data/status.json</code> and refresh it every 5 minutes.</noscript>
+<noscript>This page needs JavaScript to load <code>data/status.json</code> and refresh it every 10 seconds.</noscript>
 <script>
 (function () {
   "use strict";
   var TESLA_PAGE = "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles";
-  var REFRESH_MS = 5 * 60 * 1000;
+  var REFRESH_MS = 10 * 1000;
   var PT = {
     timeZone: "America/Los_Angeles",
     month: "short",
@@ -420,7 +421,7 @@
   function renderTimes() {
     var data = lastData || {};
     var failed = data.last_attempt_status === "error";
-    document.getElementById("checked-label").textContent = failed ? "Last successful check" : "Last checked";
+    document.getElementById("checked-label").textContent = failed ? "Last successful list check" : "List checked";
     document.getElementById("checked-abs").textContent = data.last_checked ? formatPT(data.last_checked) : "not yet";
     document.getElementById("checked-rel").textContent = data.last_checked ? "(" + relative(data.last_checked) + ")" : "";
     document.getElementById("loaded-label").textContent = loadedAt && !loadOk ? "Page reload failed" : "Page data loaded";
@@ -668,25 +669,41 @@
     banner.append(
       el("strong", {}, ["This page could not read data/status.json. "]),
       String(err && err.message ? err.message : err),
-      " It will try again in 5 minutes. The counts above stay as they were if a previous load worked."
+      " It will try again in 10 seconds. The counts above stay as they were if a previous load worked."
     );
     document.getElementById("loaded-label").textContent = "Page reload failed";
     document.getElementById("loaded-abs").textContent = formatPT(new Date());
     document.getElementById("loaded-rel").textContent = "(just now)";
   }
 
-  async function load() {
+  var refreshTimer = null;
+
+  function stopRefresh() {
+    if (!refreshTimer) return;
+    clearInterval(refreshTimer);
+    refreshTimer = null;
+  }
+
+  function startRefresh() {
+    stopRefresh();
+    if (document.visibilityState === "hidden") return;
+    refreshTimer = setInterval(function () { load(false); }, REFRESH_MS);
+  }
+
+  async function load(manual) {
+    if (!manual && document.visibilityState === "hidden") return;
     if (loading) return;
     loading = true;
     var button = document.getElementById("refresh");
-    button.disabled = true;
+    if (manual) button.disabled = true;
     try {
       var response = await fetch("data/status.json?t=" + Date.now(), { cache: "no-store" });
       if (!response.ok) throw new Error("HTTP " + response.status);
       var data = await response.json();
       loadedAt = new Date();
       loadOk = true;
-      render(data);
+      if (lastData && JSON.stringify(lastData) === JSON.stringify(data)) renderTimes();
+      else render(data);
     } catch (err) {
       loadedAt = new Date();
       loadOk = false;
@@ -697,15 +714,18 @@
     }
   }
 
-  document.getElementById("refresh").addEventListener("click", load);
-  setInterval(load, REFRESH_MS);
+  document.getElementById("refresh").addEventListener("click", function () { load(true); });
   setInterval(renderTimes, 30000);
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible" && loadedAt && Date.now() - loadedAt.getTime() >= REFRESH_MS) {
-      load();
+    if (document.visibilityState === "hidden") {
+      stopRefresh();
+      return;
     }
+    load(false);
+    startRefresh();
   });
-  load();
+  startRefresh();
+  load(false);
 })();
 </script>
 </body>

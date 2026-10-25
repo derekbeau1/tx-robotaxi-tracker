@@ -11,12 +11,12 @@ Live site, once Pages is on: <https://derekbeau1.github.io/tx-robotaxi-tracker/>
 - Model Y, Cybercab, and the Tesla total
 - Change since the Oct 24, 2026 baseline (507 Model Y, 463 Cybercab, 970 Tesla vehicles, 15 operators)
 - When the list was last checked, in Pacific time (`America/Los_Angeles`)
-- When the page itself last reloaded the data file (it does this every 5 minutes, with a cache-busting query)
+- When the page itself last reloaded the data file (it does this every 10 seconds, with a cache-busting query, and pauses while the tab is hidden)
 - A log of additions and removals detected after the first snapshot
 - Vehicle counts for every operator
 - A link to [Tesla's vehicles on the DMV site](https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles)
 
-Checks are scheduled every 5 minutes (`*/5 * * * *`). GitHub's scheduler sometimes starts a job a few minutes late, so a new vehicle can take longer than 5 minutes to appear. The page says that too.
+Checks are scheduled every 5 minutes (`*/5 * * * *`). GitHub's scheduler sometimes starts a job a few minutes late, so a new vehicle can take longer than 5 minutes to appear. The page says that too: it reloads every 10 seconds, and the List checked time is the freshness of the official list.
 
 ## How it works
 
