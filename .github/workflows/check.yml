@@ -1,0 +1,316 @@
+name: Check Texas robotaxi list
+
+on:
+  schedule:
+    # GitHub may start this a few minutes after the mark.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+# One run at a time. A newer queued run replaces an older queued run.
+# The run that is already in progress is not cancelled.
+concurrency:
+  group: tx-robotaxi-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      issues: write
+      pages: write
+      id-token: write
+    outputs:
+      pages_enabled: ${{ steps.pages.outputs.enabled }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Hash the saved vehicle list
+        run: python3 scripts/decide.py hash data/snapshot.json > /tmp/before.hash
+
+      - name: Run checker
+        id: checker
+        run: |
+          set +e
+          python3 -u check.py --snapshot data/snapshot.json --status data/status.json > /tmp/report.json
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ ! -s /tmp/report.json ]; then
+            echo '{"status":"error","error":"checker produced no output"}' > /tmp/report.json
+          fi
+          case "$code" in
+            0|1|10|20) ;;
+            *) echo "Unexpected checker exit $code"; exit "$code" ;;
+          esac
+
+      - name: Count open failure issues
+        id: issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          count=$(gh issue list --state open --limit 20 --search 'in:title "Texas DMV checker failed 3 times in a row"' --json number --jq 'length')
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            echo "Could not list issues; refusing to guess whether an alert is already open." >&2
+            exit 1
+          fi
+          echo "open_error_issues=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Decide commits and alerts
+        id: decide
+        env:
+          EXIT_CODE: ${{ steps.checker.outputs.code }}
+          OPEN_ERROR_ISSUES: ${{ steps.issues.outputs.open_error_issues }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          before=$(cat /tmp/before.hash)
+          after=$(python3 scripts/decide.py hash data/snapshot.json)
+          if [ "$before" = "$after" ]; then
+            changed=false
+          else
+            changed=true
+          fi
+          python3 scripts/decide.py record \
+            --exit-code "$EXIT_CODE" \
+            --report /tmp/report.json \
+            --companies-changed "$changed" \
+            --open-error-issues "$OPEN_ERROR_ISSUES" \
+            --run-url "$RUN_URL" \
+            > /tmp/decision.json
+          python3 - <<'PY'
+          import json, os
+          decision = json.load(open("/tmp/decision.json"))
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              for key in ("commit_data", "commit_heartbeat", "commit_state", "commit_any", "open_tesla_issue", "open_error_issue"):
+                  handle.write("%s=%s\n" % (key, "true" if decision.get(key) else "false"))
+              message = (decision.get("commit_message") or "Update tracker data").replace("\n", " ").replace("\r", " ")
+              handle.write("commit_message=%s\n" % message)
+          PY
+
+      - name: Stage the Pages site
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/data
+          cp index.html _site/index.html
+          cp .nojekyll _site/.nojekyll
+          cp data/status.json _site/data/status.json
+          test -s _site/index.html
+          test -s _site/data/status.json
+
+      - name: Keep unchanged vehicle files out of git
+        if: steps.decide.outputs.commit_data != 'true'
+        run: git checkout -- data/snapshot.json data/status.json || true
+
+      - name: Commit snapshot, heartbeat, or failure state
+        if: steps.decide.outputs.commit_any == 'true'
+        env:
+          COMMIT_MESSAGE: ${{ steps.decide.outputs.commit_message }}
+          COMMIT_DATA: ${{ steps.decide.outputs.commit_data }}
+          COMMIT_HEARTBEAT: ${{ steps.decide.outputs.commit_heartbeat }}
+          COMMIT_STATE: ${{ steps.decide.outputs.commit_state }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$COMMIT_DATA" = "true" ]; then
+            git add -- data/snapshot.json data/status.json
+          fi
+          if [ "$COMMIT_HEARTBEAT" = "true" ]; then
+            git add -- data/last_checked.json
+          fi
+          if [ "$COMMIT_STATE" = "true" ]; then
+            git add -- data/run_state.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+          else
+            git commit -m "$COMMIT_MESSAGE"
+            git push origin HEAD
+          fi
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+          include-hidden-files: true
+
+      - name: Open tracker issues
+        id: alerts
+        if: steps.decide.outputs.open_tesla_issue == 'true' || steps.decide.outputs.open_error_issue == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          decision = json.load(open("/tmp/decision.json"))
+          if decision.get("open_tesla_issue"):
+              open("/tmp/tesla_title.txt", "w", encoding="utf-8").write(decision["tesla_issue_title"])
+              open("/tmp/tesla_body.md", "w", encoding="utf-8").write(decision["tesla_issue_body"])
+              open("/tmp/tesla_alert_id.txt", "w", encoding="utf-8").write(decision.get("tesla_alert_id") or "")
+          if decision.get("open_error_issue"):
+              open("/tmp/error_title.txt", "w", encoding="utf-8").write(decision["error_issue_title"])
+              open("/tmp/error_body.md", "w", encoding="utf-8").write(decision["error_issue_body"])
+          PY
+          if [ -f /tmp/tesla_title.txt ]; then
+            alert_id=$(cat /tmp/tesla_alert_id.txt)
+            if [ -n "$alert_id" ]; then
+              existing=$(gh issue list --state all --limit 20 --search "in:body $alert_id" --json number --jq 'length')
+            else
+              existing=0
+            fi
+            if [ "$existing" != "0" ]; then
+              echo "Tesla alert ${alert_id} is already filed."
+            else
+              gh issue create --title "$(cat /tmp/tesla_title.txt)" --body-file /tmp/tesla_body.md
+            fi
+          fi
+          if [ -f /tmp/error_title.txt ]; then
+            gh issue create --title "$(cat /tmp/error_title.txt)" --body-file /tmp/error_body.md
+          fi
+
+      - name: Clear alerts that were filed
+        if: steps.alerts.outcome == 'success' && (steps.decide.outputs.open_tesla_issue == 'true' || steps.decide.outputs.open_error_issue == 'true')
+        run: |
+          set -euo pipefail
+          args=()
+          if [ -f /tmp/tesla_title.txt ]; then args+=(--tesla); fi
+          if [ -f /tmp/error_title.txt ]; then args+=(--error); fi
+          if [ "${#args[@]}" -eq 0 ]; then
+            echo "No alert flag to clear."
+            exit 0
+          fi
+          python3 scripts/decide.py ack "${args[@]}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/run_state.json
+          if git diff --cached --quiet; then
+            echo "Alert state already clear."
+          else
+            git commit -m "Clear tracker alert that was filed"
+            git push origin HEAD
+          fi
+
+      - name: See if GitHub Pages is enabled
+        id: pages
+        if: always() && steps.checker.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          gh api "repos/${GITHUB_REPOSITORY}/pages" > /tmp/pages.json 2> /tmp/pages.err
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Write job summary
+        if: always()
+        env:
+          EXIT_CODE: ${{ steps.checker.outputs.code }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          lines = ["## Texas robotaxi check", ""]
+          try:
+              report = json.load(open("/tmp/report.json"))
+          except Exception as exc:
+              report = {"status": "error", "error": str(exc)}
+          try:
+              decision = json.load(open("/tmp/decision.json"))
+          except Exception:
+              decision = {}
+          lines.append("- Checker status: `%s`" % report.get("status"))
+          lines.append("- Exit code: `%s`" % os.environ.get("EXIT_CODE", "unknown"))
+          lines.append("- Operators found: %s" % report.get("operators_found", "n/a"))
+          if report.get("error"):
+              lines.append("- Error: %s" % str(report.get("error"))[:500])
+          lines.append("- Commit: %s" % (decision.get("commit_message") or "n/a"))
+          tesla = report.get("tesla_current") or {}
+          for name, info in tesla.items():
+              lines.append("- %s: %s vehicles" % (name, info.get("vehicle_count")))
+          path = os.environ.get("GITHUB_STEP_SUMMARY")
+          if path:
+              with open(path, "a", encoding="utf-8") as handle:
+                  handle.write("\n".join(lines) + "\n")
+          PY
+
+  try-enable:
+    needs: check
+    if: needs.check.result == 'success' && needs.check.outputs.pages_enabled != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: write
+    outputs:
+      enabled: ${{ steps.recheck.outputs.enabled }}
+    steps:
+      - name: Try to enable GitHub Pages
+        id: enable
+        continue-on-error: true
+        uses: actions/configure-pages@v6
+        with:
+          # The default GITHUB_TOKEN cannot create a Pages site. This is attempted
+          # anyway; the manual Settings step in the README is the reliable path.
+          enablement: true
+
+      - name: Recheck Pages
+        id: recheck
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          gh api "repos/${GITHUB_REPOSITORY}/pages" > /tmp/pages.json 2> /tmp/pages.err
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is enabled." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::GitHub Pages is not enabled. Settings → Pages → Source: GitHub Actions. The default token cannot turn Pages on."
+            cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          ### GitHub Pages is not enabled yet
+
+          The checker still runs. This token cannot create the Pages site (GitHub does not allow the built-in `GITHUB_TOKEN` to do that).
+
+          One-time setup, as the repo owner:
+
+          1. Open **Settings → Pages**
+          2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+
+          The next run deploys to https://derekbeau1.github.io/tx-robotaxi-tracker/
+          EOF
+          fi
+
+  deploy:
+    needs: [check, try-enable]
+    if: >-
+      always() &&
+      needs.check.result == 'success' &&
+      (needs.check.outputs.pages_enabled == 'true' || needs.try-enable.outputs.enabled == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

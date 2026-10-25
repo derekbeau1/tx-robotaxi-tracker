@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tesla Model Y and Cybercab counts on the official Texas DMV automated vehicle list, updated from the public feed.">
+<meta name="theme-color" content="#0d4f4f">
+<title>Texas robotaxi tracker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%230d4f4f'/%3E%3Ctext x='8' y='12' text-anchor='middle' font-size='8' fill='%23f4fbfb' font-family='sans-serif'%3ETX%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #efe7d6;
+    --ink: #1c1914;
+    --muted: #534b40;
+    --card: #fffaf1;
+    --line: #ddcbb3;
+    --accent: #0d4f4f;
+    --accent-ink: #f3fbfb;
+    --up: #8d2f23;
+    --down: #1e4d8c;
+    --tesla: #e5f3f1;
+    --warn-bg: #fde8d8;
+    --warn-ink: #6d2c12;
+    --ok: #1f6b45;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14110e;
+      --ink: #f4ecdf;
+      --muted: #d2c3ae;
+      --card: #221c16;
+      --line: #3e342a;
+      --accent: #8fd9d1;
+      --accent-ink: #102220;
+      --up: #ffb4a8;
+      --down: #c5d8ff;
+      --tesla: #1a3331;
+      --warn-bg: #3a2418;
+      --warn-ink: #ffd7c2;
+      --ok: #8fd9a8;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.5 "Segoe UI", system-ui, sans-serif;
+  }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  .kicker {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    margin: 0.25rem 0 0.45rem;
+    font-family: Georgia, "Iowan Old Style", Palatino, "Palatino Linotype", serif;
+    font-size: clamp(2.1rem, 7vw, 3.3rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 650;
+  }
+  h2 {
+    margin: 0 0 0.7rem;
+    font-family: Georgia, "Iowan Old Style", Palatino, serif;
+    font-size: 1.55rem;
+    font-weight: 650;
+  }
+  .lede { margin: 0 0 1rem; max-width: 40rem; }
+  .note {
+    margin: 0.9rem 0 1.1rem;
+    color: var(--ink);
+    max-width: 42rem;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.2rem 0 1.6rem; }
+  a.button, button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  a.button { background: var(--accent); color: var(--accent-ink); font-weight: 650; }
+  button { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  button:disabled { opacity: 0.6; cursor: progress; }
+  .stats { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 0 0 1rem; }
+  @media (min-width: 740px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 0.95rem 1.05rem 1rem;
+  }
+  .stat h2 { font-family: "Segoe UI", system-ui, sans-serif; font-size: 0.95rem; margin: 0; font-weight: 650; }
+  .num {
+    margin: 0.35rem 0 0.15rem;
+    font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+  }
+  .delta { margin: 0; font-variant-numeric: tabular-nums; }
+  .up { color: var(--up); font-weight: 650; }
+  .down { color: var(--down); font-weight: 650; }
+  .flat { color: var(--muted); }
+  .meta { margin: 0.15rem 0; }
+  .pill {
+    display: inline-block;
+    margin: 0 0 0.8rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    font-size: 0.92rem;
+  }
+  .banner {
+    background: var(--warn-bg);
+    color: var(--warn-ink);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    margin: 0 0 1rem;
+  }
+  .banner pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    margin: 0.5rem 0 0;
+    font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 0.86rem;
+  }
+  section { margin: 1.8rem 0; }
+  .card, .log-item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+  }
+  .log-item { margin: 0.7rem 0; }
+  .log-item h3 { margin: 0 0 0.3rem; font-size: 1.05rem; }
+  .log-item p { margin: 0.3rem 0; }
+  ul.vins { margin: 0.4rem 0 0; padding-left: 1.1rem; }
+  ul.vins li { overflow-wrap: anywhere; }
+  code {
+    font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 0.86rem;
+  }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 14px; }
+  th, td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 650; }
+  td.count {
+    text-align: right;
+    font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  tr.tesla { background: var(--tesla); }
+  .who { font-weight: 650; }
+  .sub { display: block; color: var(--muted); font-weight: 450; font-size: 0.88rem; }
+  .tag {
+    display: inline-block;
+    margin-left: 0.4rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    vertical-align: 0.1em;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
+  footer { margin-top: 2rem; color: var(--muted); }
+  footer a { color: var(--ink); }
+  @media (max-width: 680px) {
+    table.ops, table.ops tbody, table.ops tr, table.ops td { display: block; width: 100%; }
+    table.ops thead { display: none; }
+    .table-wrap { overflow: visible; border: 0; background: transparent; }
+    table.ops { background: transparent; }
+    table.ops tr {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin: 0 0 0.75rem;
+      padding: 0.35rem 0;
+      background: var(--card);
+    }
+    table.ops td {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 0;
+      text-align: right;
+    }
+    table.ops td::before {
+      content: attr(data-label);
+      color: var(--muted);
+      text-align: left;
+      flex: 0 0 38%;
+    }
+    table.ops td.count { text-align: right; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Texas DMV · Automated vehicles</p>
+    <h1>Tesla robotaxi tracker</h1>
+    <p class="lede" id="lede">Model Y and Cybercab counts from the public Texas DMV automated vehicle list, plus every other operator on that list.</p>
+    <p class="pill" id="pill">Loading the latest check…</p>
+    <div id="error-banner" class="banner" hidden></div>
+    <div class="stats" id="stats" aria-live="polite"></div>
+    <div id="since"></div>
+    <p class="meta" id="checked-line"><span id="checked-label">List checked</span>: <span id="checked-abs">…</span> <span id="checked-rel"></span></p>
+    <p class="meta" id="loaded-line"><span id="loaded-label">Page data loaded</span>: <span id="loaded-abs">not yet</span> <span id="loaded-rel"></span></p>
+    <p class="note">Checks are scheduled every 5 minutes. GitHub’s scheduler sometimes starts a few minutes late, so a new vehicle can take longer than 5 minutes to show up here. This page reloads its data file on its own every 5 minutes.</p>
+    <div class="actions">
+      <a class="button" id="tesla-link" href="https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles">Tesla vehicles on the Texas DMV list</a>
+      <button type="button" id="refresh">Refresh now</button>
+    </div>
+  </header>
+
+  <section>
+    <h2>Change log</h2>
+    <div id="log"><p>Loading…</p></div>
+  </section>
+
+  <section>
+    <h2>All operators <span id="op-count"></span></h2>
+    <div id="operators"><p>Loading…</p></div>
+  </section>
+
+  <footer>
+    <p>Source: <a href="https://txmccs.txdmv.gov/automated-vehicles/">Texas DMV automated vehicle lookup</a>. Counts come from that public feed. No login is used.</p>
+  </footer>
+</div>
+<noscript>This page needs JavaScript to load <code>data/status.json</code> and refresh it every 5 minutes.</noscript>
+<script>
+(function () {
+  "use strict";
+  var TESLA_PAGE = "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles";
+  var REFRESH_MS = 5 * 60 * 1000;
+  var PT = {
+    timeZone: "America/Los_Angeles",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short"
+  };
+  var lastData = null;
+  var loadedAt = null;
+  var loadOk = false;
+  var loading = false;
+
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    attrs = attrs || {};
+    Object.keys(attrs).forEach(function (key) {
+      var value = attrs[key];
+      if (value == null || value === false) return;
+      if (key === "class") node.className = value;
+      else node.setAttribute(key, value === true ? "" : String(value));
+    });
+    (children || []).forEach(function (child) {
+      if (child == null || child === false) return;
+      node.append(child.nodeType ? child : document.createTextNode(String(child)));
+    });
+    return node;
+  }
+
+  function clear(node) {
+    while (node.firstChild) node.removeChild(node.firstChild);
+  }
+
+  function formatPT(value) {
+    if (!value) return "unknown";
+    var date = value instanceof Date ? value : new Date(value);
+    if (isNaN(date.getTime())) return String(value);
+    return new Intl.DateTimeFormat("en-US", PT).format(date);
+  }
+
+  function relative(value) {
+    var date = value instanceof Date ? value : new Date(value);
+    if (isNaN(date.getTime())) return "";
+    var seconds = (Date.now() - date.getTime()) / 1000;
+    if (seconds < 90) return "just now";
+    if (seconds < 3600) return Math.round(seconds / 60) + " min ago";
+    if (seconds < 86400) return Math.round(seconds / 3600) + " hr ago";
+    return Math.round(seconds / 86400) + " days ago";
+  }
+
+  function formatDelta(n) {
+    var value = Number(n) || 0;
+    if (value > 0) return "+" + value.toLocaleString("en-US");
+    if (value < 0) return "\u2212" + Math.abs(value).toLocaleString("en-US");
+    return "0";
+  }
+
+  function deltaClass(n) {
+    var value = Number(n) || 0;
+    if (value > 0) return "up";
+    if (value < 0) return "down";
+    return "flat";
+  }
+
+  function safePage(url) {
+    try {
+      var parsed = new URL(url, "https://txmccs.txdmv.gov");
+      if (parsed.protocol === "https:" && parsed.hostname === "txmccs.txdmv.gov") return parsed.href;
+    } catch (err) {}
+    return TESLA_PAGE;
+  }
+
+  function shortName(name) {
+    var full = name || "Unknown operator";
+    var short = full.split(",")[0].trim() || full;
+    return { full: full, short: short };
+  }
+
+  function countText(n) {
+    return (Number(n) || 0).toLocaleString("en-US");
+  }
+
+  function baselineLabel(data) {
+    var base = data.baseline || {};
+    return base.label || (base.as_of ? formatPT(base.as_of) : "the saved baseline");
+  }
+
+  function renderTimes() {
+    var data = lastData || {};
+    var failed = data.last_attempt_status === "error";
+    document.getElementById("checked-label").textContent = failed ? "Last successful check" : "List checked";
+    document.getElementById("checked-abs").textContent = data.last_checked ? formatPT(data.last_checked) : "not yet";
+    document.getElementById("checked-rel").textContent = data.last_checked ? "(" + relative(data.last_checked) + ")" : "";
+    document.getElementById("loaded-label").textContent = loadedAt && !loadOk ? "Page reload failed" : "Page data loaded";
+    document.getElementById("loaded-abs").textContent = loadedAt ? formatPT(loadedAt) : "not yet";
+    document.getElementById("loaded-rel").textContent = loadedAt ? "(" + relative(loadedAt) + ")" : "";
+  }
+
+  function renderStats(data) {
+    var host = document.getElementById("stats");
+    clear(host);
+    var counts = data.tesla_counts;
+    var delta = data.change_since_baseline || {};
+    var label = baselineLabel(data);
+    if (!counts) {
+      host.append(el("p", {}, ["No Tesla counts are in this data file yet."]));
+      return;
+    }
+    var cards = [
+      ["Model Y", counts.model_y, delta.model_y],
+      ["Cybercab", counts.cybercab, delta.cybercab],
+      ["Tesla total", counts.total, delta.total]
+    ];
+    cards.forEach(function (card) {
+      var children = [
+        el("h2", {}, [card[0]]),
+        el("p", { class: "num" }, [countText(card[1])])
+      ];
+      if (data.change_since_baseline) {
+        children.push(el("p", { class: "delta " + deltaClass(card[2]) }, [
+          formatDelta(card[2]) + " since " + label
+        ]));
+      }
+      if (card[0] === "Tesla total" && counts.other) {
+        children.push(el("p", { class: "sub" }, [countText(counts.other) + " other Tesla vehicles are included in the total."]));
+      }
+      host.append(el("article", { class: "stat" }, children));
+    });
+  }
+
+  function renderSince(data) {
+    var host = document.getElementById("since");
+    clear(host);
+    var base = data.baseline || {};
+    var opsNow = (data.operators || []).length;
+    if (base.operators == null && !opsNow) return;
+    var text = opsNow + " operators on the list";
+    if (base.operators != null) {
+      text += " (" + formatDelta(opsNow - Number(base.operators)) + " since " + baselineLabel(data) + ")";
+    }
+    host.append(el("p", { class: "meta" }, [text + "."]));
+  }
+
+  function renderBanner(data) {
+    var banner = document.getElementById("error-banner");
+    clear(banner);
+    if (data.last_attempt_status !== "error") {
+      banner.hidden = true;
+      return;
+    }
+    banner.hidden = false;
+    banner.append(
+      el("strong", {}, ["The last check failed. "]),
+      data.last_checked
+        ? "The counts below are from the last successful read (" + formatPT(data.last_checked) + "). "
+        : "There is no successful read in this file yet. ",
+      data.last_attempt ? "Failed attempt: " + formatPT(data.last_attempt) + "." : "",
+      el("pre", {}, [data.last_error || "Unknown error"])
+    );
+  }
+
+  function renderPill(data) {
+    var pill = document.getElementById("pill");
+    if (data.last_attempt_status === "error") {
+      pill.textContent = "Last attempt failed";
+      return;
+    }
+    var labels = {
+      "no new entries": "No new vehicles since the saved list",
+      "NEW TESLA ENTRIES": "New Tesla vehicles on the latest change",
+      "new non-Tesla entries only": "New non-Tesla vehicles on the latest change",
+      "vehicles removed only": "Vehicles were removed on the latest change"
+    };
+    pill.textContent = labels[data.last_result] || "List checked";
+  }
+
+  function renderLede(data) {
+    var ops = data.tesla_operators || [];
+    var primary = null;
+    for (var i = 0; i < ops.length; i++) {
+      if ((ops[i].page || "") === TESLA_PAGE) primary = ops[i];
+    }
+    if (!primary && ops.length) primary = ops[0];
+    var link = document.getElementById("tesla-link");
+    link.href = safePage(primary && primary.page ? primary.page : TESLA_PAGE);
+    if (!primary) return;
+    var name = shortName(primary.name);
+    var lede = document.getElementById("lede");
+    clear(lede);
+    lede.append(
+      "Model Y and Cybercab counts for ",
+      el("strong", {}, [name.short]),
+      primary.av_auth_number ? " (authorization " + primary.av_auth_number + ")" : "",
+      " on the public Texas DMV automated vehicle list, plus every other operator on that list."
+    );
+  }
+
+  function modelLines(map) {
+    if (!map || typeof map !== "object") return [];
+    return Object.keys(map).map(function (key) {
+      return countText(map[key]) + " × " + key;
+    });
+  }
+
+  function vinList(samples, omitted) {
+    if (!samples || !samples.length) return null;
+    var items = samples.map(function (vehicle) {
+      var bits = [vehicle.vin, vehicle.year, vehicle.make, vehicle.model, vehicle.operator].filter(function (part) {
+        return part != null && part !== "";
+      });
+      return el("li", {}, [el("code", {}, [bits.join(" · ")])]);
+    });
+    var details = el("details", {}, [
+      el("summary", {}, ["VINs (" + samples.length + (omitted ? " shown, " + omitted + " more not stored" : "") + ")"])
+    ]);
+    if (samples.length <= 8) details.open = true;
+    details.append(el("ul", { class: "vins" }, items));
+    return details;
+  }
+
+  function renderLog(data) {
+    var host = document.getElementById("log");
+    clear(host);
+    var entries = (data.change_log || []).slice().reverse();
+    var hidden = 0;
+    if (entries.length > 30) {
+      hidden = entries.length - 30;
+      entries = entries.slice(0, 30);
+    }
+    if (!entries.length) {
+      host.append(el("div", { class: "card" }, [
+        el("p", {}, [
+          "No additions or removals have been detected since this tracker stored its first snapshot. Totals above are still compared with the " + baselineLabel(data) + " baseline."
+        ])
+      ]));
+      return;
+    }
+    entries.forEach(function (entry) {
+      var body = [
+        el("h3", {}, [entry.result || "Change"]),
+        el("p", { class: "meta" }, [formatPT(entry.checked_at)])
+      ];
+      var fresh = entry.new_tesla_model_y_or_cybercab;
+      if (fresh && fresh.count) {
+        body.push(el("p", {}, ["New Model Y / Cybercab: " + countText(fresh.count)]));
+        modelLines(fresh.by_model).forEach(function (line) {
+          body.push(el("p", {}, [line]));
+        });
+        body.push(vinList(entry.new_tesla_model_y_or_cybercab_sample, entry.new_tesla_model_y_or_cybercab_sample_omitted));
+      }
+      if (entry.new_tesla_other_or_unspecified_model) {
+        body.push(el("p", {}, ["Other new Tesla vehicles: " + countText(entry.new_tesla_other_or_unspecified_model)]));
+        body.push(vinList(entry.new_tesla_other_sample, 0));
+      }
+      (entry.new_companies || []).forEach(function (company) {
+        var label = (company.tesla ? "New Tesla company: " : "New company: ") + (company.name || "Unknown");
+        if (company.page) {
+          body.push(el("p", {}, [el("a", { href: safePage(company.page) }, [label])]));
+        } else {
+          body.push(el("p", {}, [label]));
+        }
+      });
+      var nonTesla = entry.new_non_tesla;
+      if (nonTesla && nonTesla.count) {
+        body.push(el("p", {}, ["New non-Tesla vehicles: " + countText(nonTesla.count)]));
+        modelLines(nonTesla.by_operator_model).slice(0, 12).forEach(function (line) {
+          body.push(el("p", {}, [line]));
+        });
+      }
+      if (entry.removed_vehicles_count) {
+        body.push(el("p", {}, ["Removed: " + countText(entry.removed_vehicles_count)]));
+        modelLines(entry.removed_vehicles_by_model).slice(0, 12).forEach(function (line) {
+          body.push(el("p", {}, [line]));
+        });
+        body.push(vinList(entry.removed_vehicles_sample, entry.removed_vehicles_sample_omitted));
+      }
+      if (entry.tesla_counts_after) {
+        var after = entry.tesla_counts_after;
+        body.push(el("p", { class: "meta" }, [
+          "Tesla after this change: " + countText(after.model_y) + " Model Y, " + countText(after.cybercab) + " Cybercab, " + countText(after.total) + " total"
+        ]));
+      }
+      host.append(el("article", { class: "log-item" }, body.filter(Boolean)));
+    });
+    if (hidden) {
+      host.append(el("p", { class: "meta" }, ["Showing the latest 30 of " + (entries.length + hidden) + " logged changes."]));
+    }
+  }
+
+  function renderOperators(data) {
+    var host = document.getElementById("operators");
+    clear(host);
+    var ops = data.operators || [];
+    document.getElementById("op-count").textContent = ops.length ? "(" + ops.length + ")" : "";
+    if (!ops.length) {
+      host.append(el("p", {}, ["No operators in this data file."]));
+      return;
+    }
+    var rows = ops.map(function (op) {
+      var name = shortName(op.name);
+      var who = el("td", { "data-label": "Operator" }, [
+        el("a", { class: "who", href: safePage(op.page) }, [name.short]),
+        op.tesla ? el("span", { class: "tag" }, ["Tesla"]) : null,
+        el("span", { class: "sub" }, [name.full !== name.short ? name.full : ""]),
+        op.av_auth_number ? el("span", { class: "sub" }, [op.av_auth_number]) : null
+      ]);
+      return el("tr", { class: op.tesla ? "tesla" : "" }, [
+        who,
+        el("td", { class: "count", "data-label": "Vehicles" }, [countText(op.vehicle_count)]),
+        el("td", { "data-label": "Status" }, [op.status || ""]),
+        el("td", { "data-label": "As of" }, [op.as_of ? formatPT(op.as_of) : ""])
+      ]);
+    });
+    host.append(el("div", { class: "table-wrap" }, [
+      el("table", { class: "ops" }, [
+        el("thead", {}, [
+          el("tr", {}, [
+            el("th", {}, ["Operator"]),
+            el("th", {}, ["Vehicles"]),
+            el("th", {}, ["Status"]),
+            el("th", {}, ["As of"])
+          ])
+        ]),
+        el("tbody", {}, rows)
+      ])
+    ]));
+  }
+
+  function render(data) {
+    lastData = data;
+    renderPill(data);
+    renderBanner(data);
+    renderLede(data);
+    renderStats(data);
+    renderSince(data);
+    renderTimes();
+    renderLog(data);
+    renderOperators(data);
+  }
+
+  function showLoadError(err) {
+    var pill = document.getElementById("pill");
+    pill.textContent = "Could not reload the data file";
+    var banner = document.getElementById("error-banner");
+    banner.hidden = false;
+    clear(banner);
+    banner.append(
+      el("strong", {}, ["This page could not read data/status.json. "]),
+      String(err && err.message ? err.message : err),
+      " It will try again in 5 minutes. The counts above stay as they were if a previous load worked."
+    );
+    document.getElementById("loaded-label").textContent = "Page reload failed";
+    document.getElementById("loaded-abs").textContent = formatPT(new Date());
+    document.getElementById("loaded-rel").textContent = "(just now)";
+  }
+
+  async function load() {
+    if (loading) return;
+    loading = true;
+    var button = document.getElementById("refresh");
+    button.disabled = true;
+    try {
+      var response = await fetch("data/status.json?t=" + Date.now(), { cache: "no-store" });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      var data = await response.json();
+      loadedAt = new Date();
+      loadOk = true;
+      render(data);
+    } catch (err) {
+      loadedAt = new Date();
+      loadOk = false;
+      showLoadError(err);
+    } finally {
+      loading = false;
+      button.disabled = false;
+    }
+  }
+
+  document.getElementById("refresh").addEventListener("click", load);
+  setInterval(load, REFRESH_MS);
+  setInterval(renderTimes, 30000);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible" && loadedAt && Date.now() - loadedAt.getTime() >= REFRESH_MS) {
+      load();
+    }
+  });
+  load();
+})();
+</script>
+</body>
+</html>

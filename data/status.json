@@ -1,0 +1,219 @@
+{
+  "baseline": {
+    "model_y": 507,
+    "cybercab": 463,
+    "other": 0,
+    "total": 970,
+    "operators": 15,
+    "as_of": "2026-10-24T19:00:00+00:00",
+    "label": "Oct 24, 2026",
+    "note": "Tesla Robotaxi, LLC (authorization AV8313426653583): 507 Model Y and 463 Cybercab. 15 operators were on the list.",
+    "tesla_operator": "Tesla Robotaxi, LLC",
+    "tesla_authorization": "AV8313426653583"
+  },
+  "source": "https://txmccs.txdmv.gov/automated-vehicles/",
+  "last_attempt": "2026-10-25T06:51:56+00:00",
+  "change_log": [],
+  "last_attempt_status": "ok",
+  "last_error": null,
+  "last_checked": "2026-10-25T06:51:56+00:00",
+  "tesla_counts": {
+    "model_y": 507,
+    "cybercab": 463,
+    "other": 0,
+    "total": 970
+  },
+  "change_since_baseline": {
+    "model_y": 0,
+    "cybercab": 0,
+    "other": 0,
+    "total": 0
+  },
+  "tesla_operators": [
+    {
+      "name": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC",
+      "av_auth_number": "AV8313426653583",
+      "status": "authorized",
+      "authorized_at": "2026-05-14T20:25:27.417266+00:00",
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
+      "counts": {
+        "model_y": 507,
+        "cybercab": 463,
+        "other": 0,
+        "total": 970
+      },
+      "by_model_year": {
+        "2026 Tesla Cybercab": 463,
+        "2026 Tesla Model Y": 507
+      }
+    }
+  ],
+  "operators": [
+    {
+      "id": "07ebbc43-ae5b-42ca-a712-d9d5ce5b3516",
+      "name": "Waymo LLC, DBA: Waymo LLC",
+      "av_auth_number": "AV8712526941758",
+      "status": "authorized",
+      "authorized_at": "2026-05-05T21:48:01.185924+00:00",
+      "vehicle_count": 1207,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/07ebbc43-ae5b-42ca-a712-d9d5ce5b3516/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "81edcff1-8a6e-4ed0-be1f-60668515e223",
+      "name": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC",
+      "av_auth_number": "AV8313426653583",
+      "status": "authorized",
+      "authorized_at": "2026-05-14T20:25:27.417266+00:00",
+      "vehicle_count": 970,
+      "tesla": true,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "fd52bbf8-a94f-409e-a821-28dacd4d8bdd",
+      "name": "Avride",
+      "av_auth_number": "AV2614126658690",
+      "status": "authorized",
+      "authorized_at": "2026-05-21T20:13:36.950085+00:00",
+      "vehicle_count": 344,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/fd52bbf8-a94f-409e-a821-28dacd4d8bdd/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "e2ec8d3a-51c0-47fd-8172-49b1ca545ad3",
+      "name": "AURORA OPERATIONS INC, DBA: AURORA",
+      "av_auth_number": "AV2312026781376",
+      "status": "authorized",
+      "authorized_at": "2026-04-30T21:51:38.839172+00:00",
+      "vehicle_count": 91,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/e2ec8d3a-51c0-47fd-8172-49b1ca545ad3/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "c7252bd3-9b9a-4dfe-98e2-db205010f93c",
+      "name": "GATIK AI INCORPORATED",
+      "av_auth_number": "AV7514626642616",
+      "status": "authorized",
+      "authorized_at": "2026-05-26T16:49:26.784513+00:00",
+      "vehicle_count": 64,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/c7252bd3-9b9a-4dfe-98e2-db205010f93c/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "b5672c35-0996-4364-8ac7-080ea0333d2c",
+      "name": "Zoox, Inc.",
+      "av_auth_number": "AV1112826519229",
+      "status": "authorized",
+      "authorized_at": "2026-05-08T15:06:34.670523+00:00",
+      "vehicle_count": 63,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/b5672c35-0996-4364-8ac7-080ea0333d2c/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "a073be41-e321-4074-9515-01279a9f36d7",
+      "name": "NURO INC, DBA: NURO",
+      "av_auth_number": "AV4914126484158",
+      "status": "authorized",
+      "authorized_at": "2026-05-21T19:18:57.811374+00:00",
+      "vehicle_count": 47,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/a073be41-e321-4074-9515-01279a9f36d7/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "fcf5ffd0-e90d-4aa6-9afa-6c002c2cf511",
+      "name": "TORC ROBOTICS INC",
+      "av_auth_number": "AV4314726144439",
+      "status": "authorized",
+      "authorized_at": "2026-05-27T02:06:01.04836+00:00",
+      "vehicle_count": 32,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/fcf5ffd0-e90d-4aa6-9afa-6c002c2cf511/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "f77bbbc9-8f1f-4272-861f-8bec46cd0587",
+      "name": "STACK OPCO LLC",
+      "av_auth_number": "AV1211026841314",
+      "status": "authorized",
+      "authorized_at": "2026-04-20T19:06:25.540156+00:00",
+      "vehicle_count": 31,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/f77bbbc9-8f1f-4272-861f-8bec46cd0587/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "51e635a0-1649-419d-86b4-76a3107e3240",
+      "name": "KODIAK ROBOTICS INC",
+      "av_auth_number": "AV6911226417664",
+      "status": "authorized",
+      "authorized_at": "2026-04-22T14:35:12.525494+00:00",
+      "vehicle_count": 29,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/51e635a0-1649-419d-86b4-76a3107e3240/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "2fb8d9e8-5add-4c1e-b746-58494b3661d8",
+      "name": "MAY MOBILITY INC",
+      "av_auth_number": "AV5211226394189",
+      "status": "authorized",
+      "authorized_at": "2026-04-22T19:48:28.60526+00:00",
+      "vehicle_count": 22,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/2fb8d9e8-5add-4c1e-b746-58494b3661d8/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "a984e056-d778-416b-af45-03188239089c",
+      "name": "BOT AUTO TX INC",
+      "av_auth_number": "AV3411026312345",
+      "status": "authorized",
+      "authorized_at": "2026-04-20T15:42:20.887467+00:00",
+      "vehicle_count": 13,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/a984e056-d778-416b-af45-03188239089c/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "43448d49-5ea9-4769-afcb-ffc5ca3f3cbb",
+      "name": "WAABI LOGISTICS INC",
+      "av_auth_number": "AV4714826624272",
+      "status": "authorized",
+      "authorized_at": "2026-05-28T21:47:24.475002+00:00",
+      "vehicle_count": 13,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/43448d49-5ea9-4769-afcb-ffc5ca3f3cbb/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "2f512c5f-7c48-4dec-b978-6b51cb9473e5",
+      "name": "MOIA America",
+      "av_auth_number": "AV9814726344397",
+      "status": "authorized",
+      "authorized_at": "2026-05-27T03:56:52.448655+00:00",
+      "vehicle_count": 12,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/2f512c5f-7c48-4dec-b978-6b51cb9473e5/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    },
+    {
+      "id": "625de9a0-ac22-4bdd-80d5-fbe638bcd74f",
+      "name": "INTERNATIONAL TRANSPORT ENGINEERING LLC, DBA: INTERNATIONAL TRANSPORT ENG",
+      "av_auth_number": "AV6514726251949",
+      "status": "authorized",
+      "authorized_at": "2026-05-27T21:32:37.9625+00:00",
+      "vehicle_count": 7,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/625de9a0-ac22-4bdd-80d5-fbe638bcd74f/automated-motor-vehicles",
+      "as_of": "2026-10-25T06:51:56+00:00"
+    }
+  ],
+  "last_result": "no new entries"
+}

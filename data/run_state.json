@@ -1,0 +1,8 @@
+{
+  "consecutive_failures": 0,
+  "last_error": null,
+  "last_failure_at": null,
+  "error_alert_sent": false,
+  "pending_tesla_alert": null,
+  "pending_error_alert": null
+}
