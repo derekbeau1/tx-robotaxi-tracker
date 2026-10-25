@@ -2,11 +2,12 @@ name: Check Texas robotaxi list
 
 on:
   schedule:
-    # GitHub may start this a few minutes after the mark.
+    # GitHub cron cannot run faster than every 5 minutes, and it may start late.
+    # scripts/watch.py does the 10-second Tesla checks inside this run.
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
-# One run at a time. A newer queued run replaces an older queued run.
+# One run at a time, including the Pages deploy. A newer queued run waits.
 # The run that is already in progress is not cancelled.
 concurrency:
   group: tx-robotaxi-check
@@ -15,7 +16,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The loop itself stops around 4.5 minutes. The cap is for a slow full fetch.
+    timeout-minutes: 15
     permissions:
       contents: write
       issues: write
@@ -30,21 +32,45 @@ jobs:
       - name: Hash the saved vehicle list
         run: python3 scripts/decide.py hash data/snapshot.json > /tmp/before.hash
 
-      - name: Run checker
+      # Quiet runs publish Pages once, after this loop. A new Tesla vehicle
+      # (exit 10) stops the loop immediately so the commit, issue, and deploy
+      # below run right away. This job does not deploy every minute: a Pages
+      # deploy is serialized and often slower than a minute, and several per
+      # run would stack and can get rate-limited.
+      - name: Watch the DMV list
         id: checker
+        timeout-minutes: 12
         run: |
-          set +e
-          python3 -u check.py --snapshot data/snapshot.json --status data/status.json > /tmp/report.json
-          code=$?
-          set -e
-          echo "code=$code" >> "$GITHUB_OUTPUT"
-          if [ ! -s /tmp/report.json ]; then
-            echo '{"status":"error","error":"checker produced no output"}' > /tmp/report.json
-          fi
-          case "$code" in
-            0|1|10|20) ;;
-            *) echo "Unexpected checker exit $code"; exit "$code" ;;
-          esac
+          set -euo pipefail
+          python3 -u scripts/watch.py \
+            --duration 270 \
+            --interval 10 \
+            --full-every 300 \
+            --max-failures 3 \
+            --snapshot data/snapshot.json \
+            --status data/status.json \
+            --report /tmp/report.json \
+            --result /tmp/watch.json
+          python3 - <<'PY'
+          import json, os
+          result = json.load(open("/tmp/watch.json"))
+          code = int(result["exit_code"])
+          if code not in (0, 1, 10, 20):
+              raise SystemExit("unexpected watch exit %s" % code)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write("code=%s\n" % code)
+              handle.write("stopped=%s\n" % str(result.get("stopped") or "").replace("\n", " "))
+              handle.write("iterations=%s\n" % result.get("iterations", 0))
+          print(json.dumps({
+              "exit_code": code,
+              "stopped": result.get("stopped"),
+              "iterations": result.get("iterations"),
+              "full_checks": result.get("full_checks"),
+              "tesla_checks": result.get("tesla_checks"),
+              "elapsed_seconds": result.get("elapsed_seconds"),
+              "deploy": result.get("deploy"),
+          }))
+          PY
 
       - name: Count open failure issues
         id: issues
@@ -147,6 +173,7 @@ jobs:
 
       - name: Open tracker issues
         id: alerts
+        continue-on-error: true
         if: steps.decide.outputs.open_tesla_issue == 'true' || steps.decide.outputs.open_error_issue == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -236,6 +263,16 @@ jobs:
               decision = {}
           lines.append("- Checker status: `%s`" % report.get("status"))
           lines.append("- Exit code: `%s`" % os.environ.get("EXIT_CODE", "unknown"))
+          try:
+              watch = json.load(open("/tmp/watch.json"))
+          except Exception:
+              watch = {}
+          if watch:
+              lines.append("- Loop: %s check(s), %s Tesla-only, %s full, stopped because `%s`, deploy `%s`" % (
+                  watch.get("iterations"), watch.get("tesla_checks"), watch.get("full_checks"),
+                  watch.get("stopped"), watch.get("deploy")))
+              lines.append("- Loop elapsed: %ss of %ss (Tesla interval %ss, best effort)" % (
+                  watch.get("elapsed_seconds"), watch.get("duration_seconds"), watch.get("interval_seconds")))
           lines.append("- Operators found: %s" % report.get("operators_found", "n/a"))
           if report.get("error"):
               lines.append("- Error: %s" % str(report.get("error"))[:500])
