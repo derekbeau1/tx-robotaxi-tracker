@@ -99,10 +99,14 @@ jobs:
           rm -rf _site
           mkdir -p _site/data
           cp index.html _site/index.html
+          cp apple-touch-icon.png _site/apple-touch-icon.png
+          cp manifest.webmanifest _site/manifest.webmanifest
           cp .nojekyll _site/.nojekyll
           cp data/status.json _site/data/status.json
           test -s _site/index.html
           test -s _site/data/status.json
+          test -s _site/apple-touch-icon.png
+          test -s _site/manifest.webmanifest
 
       - name: Keep unchanged vehicle files out of git
         if: steps.decide.outputs.commit_data != 'true'

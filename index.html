@@ -2,213 +2,287 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tesla Model Y and Cybercab counts on the official Texas DMV automated vehicle list, updated from the public feed.">
-<meta name="theme-color" content="#0d4f4f">
+<meta name="theme-color" content="#efe7d6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12100d" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Robotaxi">
 <title>Texas robotaxi tracker</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%230d4f4f'/%3E%3Ctext x='8' y='12' text-anchor='middle' font-size='8' fill='%23f4fbfb' font-family='sans-serif'%3ETX%3C/text%3E%3C/svg%3E">
 <style>
   :root {
+    color-scheme: light;
     --bg: #efe7d6;
-    --ink: #1c1914;
-    --muted: #534b40;
+    --ink: #1b1712;
+    --muted: #3e342b;
     --card: #fffaf1;
-    --line: #ddcbb3;
-    --accent: #0d4f4f;
-    --accent-ink: #f3fbfb;
-    --up: #8d2f23;
-    --down: #1e4d8c;
-    --tesla: #e5f3f1;
-    --warn-bg: #fde8d8;
-    --warn-ink: #6d2c12;
-    --ok: #1f6b45;
+    --line: #c9b79a;
+    --accent: #0c4545;
+    --accent-ink: #f7fffe;
+    --up: #8a261c;
+    --down: #163e78;
+    --tesla: #d5eeeb;
+    --warn-bg: #f6d3be;
+    --warn-ink: #5c220e;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #14110e;
-      --ink: #f4ecdf;
-      --muted: #d2c3ae;
-      --card: #221c16;
-      --line: #3e342a;
-      --accent: #8fd9d1;
-      --accent-ink: #102220;
-      --up: #ffb4a8;
-      --down: #c5d8ff;
-      --tesla: #1a3331;
-      --warn-bg: #3a2418;
-      --warn-ink: #ffd7c2;
-      --ok: #8fd9a8;
+      color-scheme: dark;
+      --bg: #12100d;
+      --ink: #f6efe4;
+      --muted: #e4d6c4;
+      --card: #261f18;
+      --line: #5a4a3a;
+      --accent: #b6efe8;
+      --accent-ink: #08211f;
+      --up: #ffc3b8;
+      --down: #d4e4ff;
+      --tesla: #1c3836;
+      --warn-bg: #4a2c1c;
+      --warn-ink: #ffe4d4;
     }
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font: 17px/1.5 "Segoe UI", system-ui, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.45;
+    overflow-wrap: break-word;
   }
-  a { color: var(--accent); }
-  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-  .wrap { max-width: 920px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  img, svg, video { max-width: 100%; }
+  a { color: var(--accent); text-underline-offset: 0.15em; }
+  a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding:
+      calc(0.85rem + env(safe-area-inset-top, 0px))
+      calc(1rem + env(safe-area-inset-right, 0px))
+      calc(1.75rem + env(safe-area-inset-bottom, 0px))
+      calc(1rem + env(safe-area-inset-left, 0px));
+  }
   .kicker {
     margin: 0;
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
+    font-size: 16px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
+    font-weight: 650;
   }
   h1 {
-    margin: 0.25rem 0 0.45rem;
+    margin: 0.15rem 0 0.75rem;
     font-family: Georgia, "Iowan Old Style", Palatino, "Palatino Linotype", serif;
-    font-size: clamp(2.1rem, 7vw, 3.3rem);
-    line-height: 1.02;
+    font-size: clamp(1.7rem, 8vw, 2.7rem);
+    line-height: 1.05;
     letter-spacing: -0.03em;
     font-weight: 650;
   }
   h2 {
     margin: 0 0 0.7rem;
     font-family: Georgia, "Iowan Old Style", Palatino, serif;
-    font-size: 1.55rem;
+    font-size: 1.45rem;
+    line-height: 1.2;
     font-weight: 650;
   }
-  .lede { margin: 0 0 1rem; max-width: 40rem; }
-  .note {
-    margin: 0.9rem 0 1.1rem;
-    color: var(--ink);
-    max-width: 42rem;
+  .lede, .note { margin: 0.85rem 0; max-width: 42rem; }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 0.4rem 0 0.4rem;
   }
-  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.2rem 0 1.6rem; }
   a.button, button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 0.55rem 1rem;
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1.1rem;
     border-radius: 999px;
     font: inherit;
+    text-align: center;
     text-decoration: none;
     cursor: pointer;
   }
-  a.button { background: var(--accent); color: var(--accent-ink); font-weight: 650; }
-  button { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  a.button { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  button { background: var(--card); color: var(--ink); border: 2px solid var(--line); }
   button:disabled { opacity: 0.6; cursor: progress; }
-  .stats { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 0 0 1rem; }
-  @media (min-width: 740px) {
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin: 0 0 0.7rem;
+  }
+  .stat.total { grid-column: 1 / -1; }
+  @media (min-width: 800px) {
     .stats { grid-template-columns: repeat(3, 1fr); }
+    .stat.total { grid-column: auto; }
+    .actions { flex-direction: row; flex-wrap: wrap; }
+    a.button, button { width: auto; }
   }
   .stat {
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 0.95rem 1.05rem 1rem;
+    padding: 0.85rem 0.9rem 0.95rem;
+    min-width: 0;
   }
-  .stat h2 { font-family: "Segoe UI", system-ui, sans-serif; font-size: 0.95rem; margin: 0; font-weight: 650; }
+  .stat h2 {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 700;
+  }
   .num {
-    margin: 0.35rem 0 0.15rem;
+    margin: 0.2rem 0 0.1rem;
     font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
-    line-height: 1;
+    font-size: clamp(2.7rem, 14vw, 4.1rem);
+    line-height: 0.95;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
   }
-  .delta { margin: 0; font-variant-numeric: tabular-nums; }
-  .up { color: var(--up); font-weight: 650; }
-  .down { color: var(--down); font-weight: 650; }
+  .delta { margin: 0.2rem 0 0; font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .up { color: var(--up); font-weight: 700; }
+  .down { color: var(--down); font-weight: 700; }
   .flat { color: var(--muted); }
-  .meta { margin: 0.15rem 0; }
+  .checked, .loaded {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 0.8rem 0.95rem;
+    margin: 0 0 0.65rem;
+  }
+  .when-label, .loaded {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .when-time {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: clamp(1.2rem, 5vw, 1.55rem);
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+  }
+  .when-rel { color: var(--muted); font-weight: 650; font-size: 1rem; }
+  .loaded { text-transform: none; letter-spacing: 0; font-weight: 550; color: var(--ink); }
+  .meta { margin: 0.2rem 0; }
   .pill {
     display: inline-block;
-    margin: 0 0 0.8rem;
-    padding: 0.2rem 0.65rem;
+    max-width: 100%;
+    margin: 0.35rem 0 0.2rem;
+    padding: 0.35rem 0.75rem;
     border-radius: 999px;
     background: var(--card);
     border: 1px solid var(--line);
-    font-size: 0.92rem;
+    font-size: 1rem;
   }
   .banner {
     background: var(--warn-bg);
     color: var(--warn-ink);
-    border-radius: 12px;
-    padding: 0.85rem 1rem;
-    margin: 0 0 1rem;
+    border-radius: 16px;
+    padding: 0.9rem 1rem;
+    margin: 0 0 0.75rem;
   }
-  .banner pre {
+  .banner pre, code {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
-    margin: 0.5rem 0 0;
     font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
-    font-size: 0.86rem;
+    font-size: 1rem;
   }
-  section { margin: 1.8rem 0; }
-  .card, .log-item {
+  .banner pre { margin: 0.5rem 0 0; }
+  section { margin: 1.6rem 0; }
+  .card, .log-item, .op {
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    padding: 0.9rem 0.95rem;
+    min-width: 0;
   }
-  .log-item { margin: 0.7rem 0; }
-  .log-item h3 { margin: 0 0 0.3rem; font-size: 1.05rem; }
-  .log-item p { margin: 0.3rem 0; }
-  ul.vins { margin: 0.4rem 0 0; padding-left: 1.1rem; }
-  ul.vins li { overflow-wrap: anywhere; }
-  code {
-    font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
-    font-size: 0.86rem;
+  .log-item { margin: 0 0 0.7rem; }
+  .log-item h3 { margin: 0 0 0.35rem; font-size: 1.1rem; }
+  .log-item p { margin: 0.35rem 0; overflow-wrap: anywhere; }
+  details summary {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
-  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 14px; }
-  th, td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 650; }
-  td.count {
-    text-align: right;
+  ul.vins { margin: 0.2rem 0 0; padding-left: 1.1rem; }
+  ul.vins li { overflow-wrap: anywhere; margin: 0.25rem 0; }
+  .ops { display: flex; flex-direction: column; gap: 0.65rem; }
+  .op {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.75rem;
+    row-gap: 0.15rem;
+    align-items: center;
+  }
+  .op.tesla { background: var(--tesla); }
+  .op-name { grid-column: 1; grid-row: 1; min-width: 0; }
+  .op .count {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    margin: 0;
     font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 1.7rem;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
-    white-space: nowrap;
+    line-height: 1;
   }
-  tr.tesla { background: var(--tesla); }
-  .who { font-weight: 650; }
-  .sub { display: block; color: var(--muted); font-weight: 450; font-size: 0.88rem; }
+  .op .sub { grid-column: 1; grid-row: 2; }
+  .op .op-meta { grid-column: 1 / -1; margin: 0.25rem 0 0; overflow-wrap: anywhere; }
+  .who {
+    display: inline-block;
+    min-height: 44px;
+    padding: 0.45rem 0.2rem 0.45rem 0;
+    font-weight: 750;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .sub { display: block; margin: 0; color: var(--muted); font-weight: 550; overflow-wrap: anywhere; }
   .tag {
     display: inline-block;
-    margin-left: 0.4rem;
-    padding: 0.05rem 0.4rem;
+    margin-left: 0.35rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 999px;
     background: var(--accent);
     color: var(--accent-ink);
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     vertical-align: 0.1em;
   }
-  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
-  footer { margin-top: 2rem; color: var(--muted); }
-  footer a { color: var(--ink); }
-  @media (max-width: 680px) {
-    table.ops, table.ops tbody, table.ops tr, table.ops td { display: block; width: 100%; }
-    table.ops thead { display: none; }
-    .table-wrap { overflow: visible; border: 0; background: transparent; }
-    table.ops { background: transparent; }
-    table.ops tr {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      margin: 0 0 0.75rem;
-      padding: 0.35rem 0;
-      background: var(--card);
-    }
-    table.ops td {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      border: 0;
-      text-align: right;
-    }
-    table.ops td::before {
-      content: attr(data-label);
-      color: var(--muted);
-      text-align: left;
-      flex: 0 0 38%;
-    }
-    table.ops td.count { text-align: right; }
+  footer { margin-top: 1.5rem; color: var(--ink); }
+  footer a { color: var(--accent); font-weight: 650; }
+  @media (min-width: 860px) {
+    .ops { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
   }
 </style>
 </head>
@@ -217,13 +291,17 @@
   <header>
     <p class="kicker">Texas DMV · Automated vehicles</p>
     <h1>Tesla robotaxi tracker</h1>
-    <p class="lede" id="lede">Model Y and Cybercab counts from the public Texas DMV automated vehicle list, plus every other operator on that list.</p>
-    <p class="pill" id="pill">Loading the latest check…</p>
     <div id="error-banner" class="banner" hidden></div>
     <div class="stats" id="stats" aria-live="polite"></div>
+    <p class="checked" id="checked-line">
+      <span class="when-label" id="checked-label">Last checked</span>
+      <span class="when-time" id="checked-abs">…</span>
+      <span class="when-rel" id="checked-rel"></span>
+    </p>
+    <p class="loaded" id="loaded-line"><span id="loaded-label">Page data loaded</span>: <span id="loaded-abs">not yet</span> <span id="loaded-rel"></span></p>
     <div id="since"></div>
-    <p class="meta" id="checked-line"><span id="checked-label">List checked</span>: <span id="checked-abs">…</span> <span id="checked-rel"></span></p>
-    <p class="meta" id="loaded-line"><span id="loaded-label">Page data loaded</span>: <span id="loaded-abs">not yet</span> <span id="loaded-rel"></span></p>
+    <p class="pill" id="pill">Loading the latest check…</p>
+    <p class="lede" id="lede">Model Y and Cybercab counts from the public Texas DMV automated vehicle list, plus every other operator on that list.</p>
     <p class="note">Checks are scheduled every 5 minutes. GitHub’s scheduler sometimes starts a few minutes late, so a new vehicle can take longer than 5 minutes to show up here. This page reloads its data file on its own every 5 minutes.</p>
     <div class="actions">
       <a class="button" id="tesla-link" href="https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles">Tesla vehicles on the Texas DMV list</a>
@@ -342,7 +420,7 @@
   function renderTimes() {
     var data = lastData || {};
     var failed = data.last_attempt_status === "error";
-    document.getElementById("checked-label").textContent = failed ? "Last successful check" : "List checked";
+    document.getElementById("checked-label").textContent = failed ? "Last successful check" : "Last checked";
     document.getElementById("checked-abs").textContent = data.last_checked ? formatPT(data.last_checked) : "not yet";
     document.getElementById("checked-rel").textContent = data.last_checked ? "(" + relative(data.last_checked) + ")" : "";
     document.getElementById("loaded-label").textContent = loadedAt && !loadOk ? "Page reload failed" : "Page data loaded";
@@ -378,7 +456,7 @@
       if (card[0] === "Tesla total" && counts.other) {
         children.push(el("p", { class: "sub" }, [countText(counts.other) + " other Tesla vehicles are included in the total."]));
       }
-      host.append(el("article", { class: "stat" }, children));
+      host.append(el("article", { class: card[0] === "Tesla total" ? "stat total" : "stat" }, children));
     });
   }
 
@@ -550,34 +628,23 @@
       host.append(el("p", {}, ["No operators in this data file."]));
       return;
     }
-    var rows = ops.map(function (op) {
+    var cards = ops.map(function (op) {
       var name = shortName(op.name);
-      var who = el("td", { "data-label": "Operator" }, [
-        el("a", { class: "who", href: safePage(op.page) }, [name.short]),
-        op.tesla ? el("span", { class: "tag" }, ["Tesla"]) : null,
-        el("span", { class: "sub" }, [name.full !== name.short ? name.full : ""]),
-        op.av_auth_number ? el("span", { class: "sub" }, [op.av_auth_number]) : null
-      ]);
-      return el("tr", { class: op.tesla ? "tesla" : "" }, [
-        who,
-        el("td", { class: "count", "data-label": "Vehicles" }, [countText(op.vehicle_count)]),
-        el("td", { "data-label": "Status" }, [op.status || ""]),
-        el("td", { "data-label": "As of" }, [op.as_of ? formatPT(op.as_of) : ""])
+      var bits = [];
+      if (op.status) bits.push(op.status);
+      if (op.av_auth_number) bits.push(op.av_auth_number);
+      if (op.as_of) bits.push(formatPT(op.as_of));
+      return el("article", { class: op.tesla ? "op tesla" : "op" }, [
+        el("div", { class: "op-name" }, [
+          el("a", { class: "who", href: safePage(op.page) }, [name.short]),
+          op.tesla ? el("span", { class: "tag" }, ["Tesla"]) : null
+        ]),
+        el("p", { class: "count" }, [countText(op.vehicle_count)]),
+        name.full !== name.short ? el("p", { class: "sub" }, [name.full]) : null,
+        el("p", { class: "op-meta" }, [bits.join(" · ")])
       ]);
     });
-    host.append(el("div", { class: "table-wrap" }, [
-      el("table", { class: "ops" }, [
-        el("thead", {}, [
-          el("tr", {}, [
-            el("th", {}, ["Operator"]),
-            el("th", {}, ["Vehicles"]),
-            el("th", {}, ["Status"]),
-            el("th", {}, ["As of"])
-          ])
-        ]),
-        el("tbody", {}, rows)
-      ])
-    ]));
+    host.append(el("div", { class: "ops" }, cards));
   }
 
   function render(data) {
