@@ -82,6 +82,7 @@ def blank_state():
         "error_alert_sent": False,
         "pending_tesla_alert": None,
         "pending_error_alert": None,
+        "ntfy_sent_alert_id": None,
     }
 
 
@@ -245,7 +246,14 @@ def build_tesla_alert(report, status, run_url):
     alert_id = tesla_alert_id(report, vehicles, companies)
     lines.append("")
     lines.append(f"<!-- alert-id: {alert_id} -->")
-    return {"alert_id": alert_id, "title": title, "body": "\n".join(lines) + "\n"}
+    return {
+        "alert_id": alert_id,
+        "title": title,
+        "body": "\n".join(lines) + "\n",
+        "model_y_added": model_y,
+        "cybercab_added": cybercab,
+        "totals": counts,
+    }
 
 
 def build_error_alert(report, state, run_url):
@@ -413,6 +421,9 @@ def record(args):
         "tesla_issue_title": tesla.get("title"),
         "tesla_issue_body": tesla.get("body"),
         "tesla_alert_id": tesla.get("alert_id"),
+        "tesla_model_y_added": tesla.get("model_y_added"),
+        "tesla_cybercab_added": tesla.get("cybercab_added"),
+        "tesla_totals": tesla.get("totals") or {},
         "error_issue_title": error.get("title"),
         "error_issue_body": error.get("body"),
         "error_alert_id": error.get("alert_id"),

@@ -2,13 +2,14 @@ name: Check Texas robotaxi list
 
 on:
   schedule:
-    # GitHub cron cannot run faster than every 5 minutes, and it may start late.
-    # scripts/watch.py does the 10-second Tesla checks inside this run.
+    # Backup restart only. GitHub has been launching this every 35-70 minutes.
+    # The chain job requests the next run as soon as this one publishes.
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
-# One run at a time, including the Pages deploy. A newer queued run waits.
-# The run that is already in progress is not cancelled.
+# One run executes at a time, including its Pages deploy and the chain step.
+# A newer run waits. The chain step drops extra queued runs so only one waits.
+# The running job is not cancelled.
 concurrency:
   group: tx-robotaxi-check
   cancel-in-progress: false
@@ -25,6 +26,8 @@ jobs:
       id-token: write
     outputs:
       pages_enabled: ${{ steps.pages.outputs.enabled }}
+      consecutive_failures: ${{ steps.decide.outputs.consecutive_failures }}
+      chain: ${{ steps.decide.outputs.chain }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -117,6 +120,9 @@ jobs:
                   handle.write("%s=%s\n" % (key, "true" if decision.get(key) else "false"))
               message = (decision.get("commit_message") or "Update tracker data").replace("\n", " ").replace("\r", " ")
               handle.write("commit_message=%s\n" % message)
+              failures = int(decision.get("consecutive_failures") or 0)
+              handle.write("consecutive_failures=%s\n" % failures)
+              handle.write("chain=%s\n" % ("false" if failures >= 3 else "true"))
           PY
 
       - name: Stage the Pages site
@@ -207,12 +213,56 @@ jobs:
             gh issue create --title "$(cat /tmp/error_title.txt)" --body-file /tmp/error_body.md
           fi
 
+      - name: Phone push
+        id: ntfy
+        continue-on-error: true
+        if: steps.decide.outputs.open_tesla_issue == 'true'
+        run: |
+          set +e
+          python3 scripts/notify.py \
+            --decision /tmp/decision.json \
+            --state data/run_state.json \
+            --config notify.json \
+            --result /tmp/ntfy.json
+          echo "notify script exit $?"
+          set -e
+          if [ ! -s /tmp/ntfy.json ]; then
+            echo '{"action":"failed","error":"notify script produced no result"}' > /tmp/ntfy.json
+          fi
+          action=$(python3 -c "import json; print(json.load(open('/tmp/ntfy.json')).get('action') or '')")
+          echo "phone push: $action"
+          if [ "$action" != "sent" ]; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/run_state.json
+          if git diff --cached --quiet; then
+            echo "Phone alert id already recorded."
+            exit 0
+          fi
+          git commit -m "Record phone alert sent" || exit 0
+          git push origin HEAD || echo "Could not push the phone-alert marker. A retry is possible."
+          exit 0
+
       - name: Clear alerts that were filed
         if: steps.alerts.outcome == 'success' && (steps.decide.outputs.open_tesla_issue == 'true' || steps.decide.outputs.open_error_issue == 'true')
         run: |
           set -euo pipefail
           args=()
-          if [ -f /tmp/tesla_title.txt ]; then args+=(--tesla); fi
+          ntfy_action="missing"
+          ntfy_reason=""
+          if [ -f /tmp/ntfy.json ]; then
+            ntfy_action=$(python3 -c "import json; print(json.load(open('/tmp/ntfy.json')).get('action') or '')")
+            ntfy_reason=$(python3 -c "import json; print(json.load(open('/tmp/ntfy.json')).get('reason') or '')")
+          fi
+          if [ -f /tmp/tesla_title.txt ]; then
+            if [ "$ntfy_action" = "sent" ] || [ "$ntfy_reason" = "already sent" ]; then
+              args+=(--tesla)
+            else
+              echo "Keeping the Tesla alert pending (phone push: ${ntfy_action})."
+            fi
+          fi
           if [ -f /tmp/error_title.txt ]; then args+=(--error); fi
           if [ "${#args[@]}" -eq 0 ]; then
             echo "No alert flag to clear."
@@ -355,3 +405,67 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # After publish (or after that step is skipped or fails), request the next
+  # run. A dispatch failure does not fail this run; cron is the backup.
+  chain:
+    needs: [check, deploy]
+    if: >-
+      always() &&
+      needs.check.result == 'success' &&
+      needs.check.outputs.chain != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Start the next run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FAILURES: ${{ needs.check.outputs.consecutive_failures }}
+        run: |
+          set -euo pipefail
+          gh run list --workflow check.yml --limit 30 --json databaseId,status,createdAt > /tmp/runs.json
+          python3 scripts/chain.py \
+            --runs /tmp/runs.json \
+            --current "${GITHUB_RUN_ID}" \
+            --failures "${FAILURES:-0}" \
+            > /tmp/chain.json
+          python3 - <<'PY'
+          import json, os, subprocess, sys
+          plan = json.load(open("/tmp/chain.json"))
+          print(json.dumps(plan))
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          lines = ["### Next run", "", "- %s" % plan.get("reason")]
+          for run_id in plan.get("cancel_ids") or []:
+              proc = subprocess.run(["gh", "run", "cancel", str(run_id)], capture_output=True, text=True)
+              if proc.returncode != 0:
+                  detail = (proc.stderr or proc.stdout or "").strip()
+                  print("could not cancel queued run %s: %s" % (run_id, detail))
+                  lines.append("- Could not cancel queued run %s" % run_id)
+              else:
+                  lines.append("- Cancelled extra queued run %s" % run_id)
+          if plan.get("dispatch"):
+              ref = os.environ.get("GITHUB_REF_NAME") or "main"
+              proc = subprocess.run(
+                  ["gh", "workflow", "run", "check.yml", "--ref", ref],
+                  capture_output=True, text=True,
+              )
+              if proc.returncode != 0:
+                  detail = (proc.stderr or proc.stdout or "").strip()
+                  print("workflow_dispatch failed: %s" % detail)
+                  print("::warning::Could not start the next run. The cron backup will restart the chain.")
+                  lines.append("- Dispatch failed. Cron remains the backup restart.")
+              else:
+                  lines.append("- Requested the next run on `%s`." % ref)
+          else:
+              lines.append("- Did not request another run.")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as handle:
+                  handle.write("\n".join(lines) + "\n")
+          sys.exit(0)
+          PY

@@ -303,7 +303,7 @@
     <div id="since"></div>
     <p class="pill" id="pill">Loading the latest check…</p>
     <p class="lede" id="lede">Model Y and Cybercab counts from the public Texas DMV automated vehicle list, plus every other operator on that list.</p>
-    <p class="note">This page reloads the saved file every 10 seconds. GitHub starts a check job about every 5 minutes and sometimes starts it late. Inside that job, Tesla is checked about every 10 seconds for roughly 4.5 minutes, and every operator is checked once. A new List checked time is published when the job finishes, or right away if a new Tesla vehicle appears. That time is how fresh these numbers are.</p>
+    <p class="note">This page reloads the saved file every 10 seconds. Each GitHub run checks Tesla about every 10 seconds for roughly 4.5 minutes, checks every operator once, publishes this page, then starts the next run. Starting that next runner takes a little while, and GitHub’s own timer is only a backup (it has been late by half an hour or more). The List checked time moves when a run publishes, including right away if a new Tesla vehicle appears. That time is how fresh these numbers are.</p>
     <div class="actions">
       <a class="button" id="tesla-link" href="https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles">Tesla vehicles on the Texas DMV list</a>
       <button type="button" id="refresh">Refresh now</button>

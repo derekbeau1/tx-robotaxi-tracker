@@ -2,7 +2,7 @@
 
 Tracks Tesla Model Y and Cybercab robotaxis on the public [Texas DMV automated vehicle list](https://txmccs.txdmv.gov/automated-vehicles/), and keeps a count for every other operator on that list.
 
-The site is one static page (`index.html`, no build). GitHub Actions starts about every 5 minutes (its scheduler cannot go faster, and a run sometimes starts late). Each run checks Tesla about every 10 seconds for roughly 4.5 minutes, checks every operator once, and publishes the latest counts with GitHub Pages.
+The site is one static page (`index.html`, no build). Each GitHub Actions run checks Tesla about every 10 seconds for roughly 4.5 minutes, checks every operator once, publishes the latest counts with GitHub Pages, then starts the next run. GitHub's own 5-minute timer is only a backup; it has been starting runs only every 35–70 minutes.
 
 Live site, once Pages is on: <https://derekbeau1.github.io/tx-robotaxi-tracker/>
 
@@ -16,14 +16,14 @@ Live site, once Pages is on: <https://derekbeau1.github.io/tx-robotaxi-tracker/>
 - Vehicle counts for every operator
 - A link to [Tesla's vehicles on the DMV site](https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles)
 
-GitHub cron stays at `*/5 * * * *`. A second run does not overlap the first (`concurrency` group `tx-robotaxi-check`). Inside a run, `scripts/watch.py` loops for 270 seconds:
+GitHub cron stays at `*/5 * * * *` as a backup restart. After a run publishes, it requests the next run with `workflow_dispatch`. The concurrency group `tx-robotaxi-check` still lets only one run execute. If a run is already waiting, another is not requested, and extra queued runs are cancelled so at most one is pending. The chain stops when the checker has failed 3 runs in a row; the cron backup is what starts it again. Inside a run, `scripts/watch.py` still loops for 270 seconds:
 
 - Tesla-only (`check.py --tesla-only`) about every 10 seconds. If a fetch takes longer than 10 seconds, the next one waits until it finishes. That 10-second pace is best effort.
 - Every operator, once per run, and never more often than every 5 minutes. The first look in a run is Tesla-only, so a new Tesla vehicle is not stuck behind the slower full list.
 - After a failed fetch, the loop waits 30 seconds, then 60. A third failure in a row stops the loop early instead of hammering TxDMV. That whole run still counts as one failure toward the 3-run error issue.
-- Exit `10` (a new Tesla vehicle or Tesla company) stops the loop immediately. The workflow commits, opens the issue (same duplicate check as before), and deploys without waiting out the 4.5 minutes.
+- Exit `10` (a new Tesla vehicle or Tesla company) stops the loop immediately. The workflow commits, opens the issue (same duplicate check as before), sends one phone push, and deploys without waiting out the 4.5 minutes.
 
-A quiet run uploads Pages once, at the end, including a fresh `data/status.json` `last_checked`. It does not publish every minute. A Pages deploy is a separate serialized step and often takes longer than a minute; doing that several times per run would stack deploys and can hit rate limits. The public List checked time therefore moves when a run publishes, not on every 10-second fetch. After the loop, the deploy still holds the concurrency lock, so the gap before the next run is about that deploy plus however late GitHub started the schedule. The page says this in the small print.
+A quiet run uploads Pages once, at the end, including a fresh `data/status.json` `last_checked`. It does not publish every minute. A Pages deploy is a separate serialized step and often takes longer than a minute; doing that several times per run would stack deploys and can hit rate limits. The public List checked time therefore moves when a run publishes, not on every 10-second fetch. The next run cannot start until this one, including that publish, has finished, and GitHub then has to provision a runner. Expect the site to update about every 6–8 minutes while the chain is healthy: roughly 4.5 minutes of checks, plus a publish, plus a short gap for the next runner. A new Tesla vehicle publishes as soon as that check finishes instead of waiting out the 4.5 minutes. If three checker runs fail in a row, chaining stops until the cron backup fires, and that backup has recently been 35–70 minutes apart. The page says this in the small print.
 
 ## How it works
 
@@ -33,8 +33,8 @@ A quiet run uploads Pages once, at the end, including a fresh `data/status.json`
 4. Exit codes: `0` nothing new, `10` a new Tesla vehicle or Tesla company, `20` only non-Tesla additions, `1` a fetch or format error. On exit `1` the snapshot file is left as it was. A failed fetch is never stored as "no change."
 5. The workflow commits `data/snapshot.json` and `data/status.json` only when the saved vehicle list changed. On a quiet run it commits the small `data/last_checked.json` at most once every 30 minutes. That heartbeat also keeps the repository from going idle long enough for GitHub to pause scheduled workflows.
 6. Every run uploads one Pages artifact with the status file from the last check in that run, so the site can show a fresh List checked time even when git did not get a new commit. A Tesla change uploads and deploys as soon as the loop stops. Quiet runs upload at the end of the loop.
-7. Exit `10` opens a GitHub issue titled like `New Tesla robotaxi(s) on Texas DMV list: +N Model Y, +M Cybercab`, with the counts, a VIN table, and the Tesla lookup link. GitHub notifies the repo owner (email or mobile, according to their own notification settings).
-8. One failed run does not open an issue. The third consecutive failure does. `data/run_state.json` holds that count. If a failure issue is already open, another one is not opened.
+7. Exit `10` opens a GitHub issue titled like `New Tesla robotaxi(s) on Texas DMV list: +N Model Y, +M Cybercab`, with the counts, a VIN table, and the Tesla lookup link. The same alert id is sent once to the phone via [ntfy](https://ntfy.sh). The topic and the click-through link live in `notify.json` (title like `Tesla added N Cybercab / M Model Y to Texas list`, body with the new totals). If ntfy is down, the run still succeeds and the push is retried on a later run. The topic is in this public repo, so anyone who can read the repo can see it.
+8. One failed run does not open an issue. The third consecutive failure does, and that is also when the self-chain stops. `data/run_state.json` holds that count. If a failure issue is already open, another one is not opened.
 
 You can run it by hand under **Actions → Check Texas robotaxi list → Run workflow**.
 
@@ -60,4 +60,8 @@ echo "exit: $?"
 
 The Oct 24, 2026 baseline is stored inside `data/status.json`. VIN-level history starts from the first snapshot in this repo. If the live totals ever differ from 507 and 463, the page shows that difference even when the change log does not yet have a matching row.
 
-No secrets are used. Alerts are GitHub issues created with the workflow token.
+No secrets are used. Alerts are a GitHub issue and one ntfy push, both created with data already in the repo. The next run is requested with the workflow's `GITHUB_TOKEN` (`actions: write`). A local phone-push check must pass `--dry-run` so it does not notify the phone:
+
+```bash
+python3 scripts/notify.py --decision /tmp/decision.json --dry-run
+```
