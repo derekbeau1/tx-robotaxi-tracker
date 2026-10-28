@@ -12,7 +12,7 @@
     "tesla_authorization": "AV8313426653583"
   },
   "source": "https://txmccs.txdmv.gov/automated-vehicles/",
-  "last_attempt": "2026-10-28T03:00:19+00:00",
+  "last_attempt": "2026-10-28T15:21:33+00:00",
   "change_log": [
     {
       "checked_at": "2026-10-27T17:33:28+00:00",
@@ -558,11 +558,52 @@
       "removed_vehicles_by_model": {},
       "removed_vehicles_sample": [],
       "removed_vehicles_sample_omitted": 0
+    },
+    {
+      "checked_at": "2026-10-28T15:17:21+00:00",
+      "result": "new non-Tesla entries only",
+      "exit_code": 20,
+      "tesla_counts_after": {
+        "model_y": 507,
+        "cybercab": 573,
+        "other": 0,
+        "total": 1080
+      },
+      "new_tesla_model_y_or_cybercab": {
+        "count": 0,
+        "by_model": {}
+      },
+      "new_tesla_model_y_or_cybercab_sample": [],
+      "new_tesla_model_y_or_cybercab_sample_omitted": 0,
+      "new_tesla_other_or_unspecified_model": 0,
+      "new_tesla_other_sample": [],
+      "new_companies": [],
+      "new_non_tesla": {
+        "count": 8,
+        "by_operator_model": {
+          "2026 Kodiak Robotics Inc / Western Star 49X Chassis": 2,
+          "2027 Kodiak Robotics Inc / Peterbilt 567": 6
+        }
+      },
+      "removed_vehicles_count": 1,
+      "removed_vehicles_by_model": {
+        "2025 Peterbilt 567": 1
+      },
+      "removed_vehicles_sample": [
+        {
+          "vin": "1XPCD40X5SD741986",
+          "year": 2025,
+          "make": "PETERBILT",
+          "model": "567",
+          "operator": "KODIAK ROBOTICS INC"
+        }
+      ],
+      "removed_vehicles_sample_omitted": 0
     }
   ],
   "last_attempt_status": "ok",
   "last_error": null,
-  "last_checked": "2026-10-28T03:00:19+00:00",
+  "last_checked": "2026-10-28T15:21:33+00:00",
   "tesla_counts": {
     "model_y": 507,
     "cybercab": 573,
@@ -604,7 +645,7 @@
       "vehicle_count": 1207,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/07ebbc43-ae5b-42ca-a712-d9d5ce5b3516/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "81edcff1-8a6e-4ed0-be1f-60668515e223",
@@ -615,7 +656,7 @@
       "vehicle_count": 1080,
       "tesla": true,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
-      "as_of": "2026-10-28T03:00:19+00:00"
+      "as_of": "2026-10-28T15:21:33+00:00"
     },
     {
       "id": "fd52bbf8-a94f-409e-a821-28dacd4d8bdd",
@@ -626,7 +667,7 @@
       "vehicle_count": 344,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/fd52bbf8-a94f-409e-a821-28dacd4d8bdd/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "e2ec8d3a-51c0-47fd-8172-49b1ca545ad3",
@@ -637,7 +678,7 @@
       "vehicle_count": 91,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/e2ec8d3a-51c0-47fd-8172-49b1ca545ad3/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "c7252bd3-9b9a-4dfe-98e2-db205010f93c",
@@ -648,7 +689,7 @@
       "vehicle_count": 64,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/c7252bd3-9b9a-4dfe-98e2-db205010f93c/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "b5672c35-0996-4364-8ac7-080ea0333d2c",
@@ -659,7 +700,7 @@
       "vehicle_count": 63,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/b5672c35-0996-4364-8ac7-080ea0333d2c/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "a073be41-e321-4074-9515-01279a9f36d7",
@@ -670,7 +711,18 @@
       "vehicle_count": 47,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/a073be41-e321-4074-9515-01279a9f36d7/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
+    },
+    {
+      "id": "51e635a0-1649-419d-86b4-76a3107e3240",
+      "name": "KODIAK ROBOTICS INC",
+      "av_auth_number": "AV6911226417664",
+      "status": "authorized",
+      "authorized_at": "2026-04-22T14:35:12.525494+00:00",
+      "vehicle_count": 36,
+      "tesla": false,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/51e635a0-1649-419d-86b4-76a3107e3240/automated-motor-vehicles",
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "fcf5ffd0-e90d-4aa6-9afa-6c002c2cf511",
@@ -681,7 +733,7 @@
       "vehicle_count": 32,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/fcf5ffd0-e90d-4aa6-9afa-6c002c2cf511/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "f77bbbc9-8f1f-4272-861f-8bec46cd0587",
@@ -692,18 +744,7 @@
       "vehicle_count": 31,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/f77bbbc9-8f1f-4272-861f-8bec46cd0587/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
-    },
-    {
-      "id": "51e635a0-1649-419d-86b4-76a3107e3240",
-      "name": "KODIAK ROBOTICS INC",
-      "av_auth_number": "AV6911226417664",
-      "status": "authorized",
-      "authorized_at": "2026-04-22T14:35:12.525494+00:00",
-      "vehicle_count": 29,
-      "tesla": false,
-      "page": "https://txmccs.txdmv.gov/truckstop/companies/51e635a0-1649-419d-86b4-76a3107e3240/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "2fb8d9e8-5add-4c1e-b746-58494b3661d8",
@@ -714,7 +755,7 @@
       "vehicle_count": 22,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/2fb8d9e8-5add-4c1e-b746-58494b3661d8/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "a984e056-d778-416b-af45-03188239089c",
@@ -725,7 +766,7 @@
       "vehicle_count": 13,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/a984e056-d778-416b-af45-03188239089c/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "43448d49-5ea9-4769-afcb-ffc5ca3f3cbb",
@@ -736,7 +777,7 @@
       "vehicle_count": 13,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/43448d49-5ea9-4769-afcb-ffc5ca3f3cbb/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "2f512c5f-7c48-4dec-b978-6b51cb9473e5",
@@ -747,7 +788,7 @@
       "vehicle_count": 12,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/2f512c5f-7c48-4dec-b978-6b51cb9473e5/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     },
     {
       "id": "625de9a0-ac22-4bdd-80d5-fbe638bcd74f",
@@ -758,8 +799,8 @@
       "vehicle_count": 7,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/625de9a0-ac22-4bdd-80d5-fbe638bcd74f/automated-motor-vehicles",
-      "as_of": "2026-10-25T06:51:56+00:00"
+      "as_of": "2026-10-28T15:17:21+00:00"
     }
   ],
-  "last_result": "NEW TESLA ENTRIES"
+  "last_result": "no new entries"
 }
