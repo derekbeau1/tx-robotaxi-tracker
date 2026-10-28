@@ -3,6 +3,19 @@
   "last_error": null,
   "last_failure_at": null,
   "error_alert_sent": false,
-  "pending_tesla_alert": null,
-  "pending_error_alert": null
+  "pending_tesla_alert": {
+    "alert_id": "tesla-20261028T0300190000-92bd85001bda",
+    "title": "New Tesla robotaxi(s) on Texas DMV list: +0 Model Y, +29 Cybercab",
+    "body": "The Texas DMV automated vehicle list has a new Tesla entry.\n\n- **Model Y:** +0\n- **Cybercab:** +29\n- **Other Tesla vehicles:** +0\n- **New Tesla companies:** 0\n- **Tesla total after this check:** 1080 (Model Y 507, Cybercab 573, other 0)\n- **Change since the Oct 24, 2026 baseline:** Model Y +0, Cybercab +110, total +110\n\n### New Model Y and Cybercab vehicles (29)\n\n| VIN | Year | Make | Model | Operator |\n| --- | --- | --- | --- | --- |\n| 5YJAJEEU7TA004222 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEUXTA004389 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEUXTA004375 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU9TA004383 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU9TA004366 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU8TA004391 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU8TA004388 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU8TA004374 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU7TA004382 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU7TA004379 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU7TA004365 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU6TA004390 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU6TA004387 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU6TA004373 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU5TA004381 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU5TA004378 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU4TA004386 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU4TA004369 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU3TA004394 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU3TA004380 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU3TA004377 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU2TA004385 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU2TA004371 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU1TA004376 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU0TA004384 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU0TA004370 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEUXTA004392 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU4TA004372 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n| 5YJAJEEU0TA004367 | 2026 | Tesla | Cybercab | Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC |\n\nTesla's vehicle list: https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles\n\nSource: https://txmccs.txdmv.gov/automated-vehicles/\nChecked at: 2026-10-28T03:00:19+00:00\nPrevious snapshot: 2026-10-27T17:33:28+00:00\nWorkflow run: https://github.com/derekbeau1/tx-robotaxi-tracker/actions/runs/40624168583\n\n<!-- alert-id: tesla-20261028T0300190000-92bd85001bda -->\n",
+    "model_y_added": 0,
+    "cybercab_added": 29,
+    "totals": {
+      "model_y": 507,
+      "cybercab": 573,
+      "other": 0,
+      "total": 1080
+    }
+  },
+  "pending_error_alert": null,
+  "ntfy_sent_alert_id": null
 }
