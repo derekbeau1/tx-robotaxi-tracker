@@ -1,7 +1,7 @@
 {
-  "consecutive_failures": 1,
-  "last_error": "Fetch failed after 3 tries: https://txmccs.txdmv.gov/api/TruckStop/companies?searchType=company_name&searchValue=tesla&limit=100&offset=0: <urlopen error timed out>",
-  "last_failure_at": "2026-10-30T06:53:42+00:00",
+  "consecutive_failures": 0,
+  "last_error": null,
+  "last_failure_at": null,
   "error_alert_sent": false,
   "pending_tesla_alert": null,
   "pending_error_alert": null,
