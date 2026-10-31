@@ -12,7 +12,7 @@
     "tesla_authorization": "AV8313426653583"
   },
   "source": "https://txmccs.txdmv.gov/automated-vehicles/",
-  "last_attempt": "2026-10-29T00:03:30+00:00",
+  "last_attempt": "2026-10-31T03:13:44+00:00",
   "change_log": [
     {
       "checked_at": "2026-10-27T17:33:28+00:00",
@@ -660,22 +660,333 @@
       "removed_vehicles_by_model": {},
       "removed_vehicles_sample": [],
       "removed_vehicles_sample_omitted": 0
+    },
+    {
+      "checked_at": "2026-10-31T03:13:44+00:00",
+      "result": "NEW TESLA ENTRIES",
+      "exit_code": 10,
+      "tesla_counts_after": {
+        "model_y": 631,
+        "cybercab": 573,
+        "other": 0,
+        "total": 1204
+      },
+      "new_tesla_model_y_or_cybercab": {
+        "count": 124,
+        "by_model": {
+          "2026 Tesla Model Y": 124
+        }
+      },
+      "new_tesla_model_y_or_cybercab_sample": [
+        {
+          "vin": "7SAYGDEE8TF554387",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE2TF596182",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF608558",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE1TF559947",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF607361",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF559960",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEEXTF563303",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE2TF598644",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF607383",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE1TF582791",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE2TF601672",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF607402",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE8TF598972",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE8TF596820",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF596550",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF598443",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF607305",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF583823",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE1TF600822",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF597044",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF547234",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE0TF541293",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE7TF586151",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEEXTF560031",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF607294",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF609507",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF560994",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEEXTF609051",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE9TF608845",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE7TF609220",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF560978",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE9TF608926",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE8TF608416",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF607366",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE7TF596775",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE9TF609218",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF607295",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF607304",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF607278",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEEXTF561003",
+          "year": 2026,
+          "make": "TESLA",
+          "model": "Model Y",
+          "operator": "Tesla Robotaxi, LLC, DBA: Tesla Robotaxi, LLC"
+        }
+      ],
+      "new_tesla_model_y_or_cybercab_sample_omitted": 84,
+      "new_tesla_other_or_unspecified_model": 0,
+      "new_tesla_other_sample": [],
+      "new_companies": [],
+      "new_non_tesla": {
+        "count": 0,
+        "by_operator_model": {}
+      },
+      "removed_vehicles_count": 0,
+      "removed_vehicles_by_model": {},
+      "removed_vehicles_sample": [],
+      "removed_vehicles_sample_omitted": 0
     }
   ],
   "last_attempt_status": "ok",
   "last_error": null,
-  "last_checked": "2026-10-29T00:03:30+00:00",
+  "last_checked": "2026-10-31T03:13:44+00:00",
   "tesla_counts": {
-    "model_y": 507,
+    "model_y": 631,
     "cybercab": 573,
     "other": 0,
-    "total": 1080
+    "total": 1204
   },
   "change_since_baseline": {
-    "model_y": 0,
+    "model_y": 124,
     "cybercab": 110,
     "other": 0,
-    "total": 110
+    "total": 234
   },
   "tesla_operators": [
     {
@@ -685,14 +996,14 @@
       "authorized_at": "2026-05-14T20:25:27.417266+00:00",
       "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
       "counts": {
-        "model_y": 507,
+        "model_y": 631,
         "cybercab": 573,
         "other": 0,
-        "total": 1080
+        "total": 1204
       },
       "by_model_year": {
         "2026 Tesla Cybercab": 573,
-        "2026 Tesla Model Y": 507
+        "2026 Tesla Model Y": 631
       }
     }
   ],
@@ -714,10 +1025,10 @@
       "av_auth_number": "AV8313426653583",
       "status": "authorized",
       "authorized_at": "2026-05-14T20:25:27.417266+00:00",
-      "vehicle_count": 1080,
+      "vehicle_count": 1204,
       "tesla": true,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
-      "as_of": "2026-10-29T00:03:30+00:00"
+      "as_of": "2026-10-31T03:13:44+00:00"
     },
     {
       "id": "fd52bbf8-a94f-409e-a821-28dacd4d8bdd",
@@ -863,5 +1174,5 @@
       "as_of": "2026-10-28T23:59:12+00:00"
     }
   ],
-  "last_result": "no new entries"
+  "last_result": "NEW TESLA ENTRIES"
 }
