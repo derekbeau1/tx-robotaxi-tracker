@@ -19,7 +19,7 @@ non-Tesla operators are not re-fetched; their last known data is carried forward
 
 A failed fetch exits 1 and leaves the snapshot untouched. That is never reported as "no change".
 """
-import argparse, json, os, re, sys, time, urllib.parse, urllib.request
+import argparse, http.client, json, os, re, socket, sys, threading, time, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone
 
 BASE = "https://txmccs.txdmv.gov/api/TruckStop/companies"
@@ -29,7 +29,13 @@ DEFAULT_SNAPSHOT = os.path.join(HERE, "snapshot.json")
 DEFAULT_STATUS = os.path.join(HERE, "status.json")
 CHANGE_LOG_MAX = 1000
 VIN_SAMPLE_MAX = 40
-UA = "Mozilla/5.0 (tx-av-monitor; personal read-only checker)"
+# A normal browser UA. The old checker token was not a browser string; some
+# edges drop those connections instead of answering.
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+ACCEPT = "application/json, text/plain, */*"
+FETCH_TRIES = 5
+FETCH_TIMEOUT = 45
 PAGE = 100  # API max
 MAX_SEARCH_RESULTS = 1000  # cap per broad search term
 # Search terms used to discover AV-authorized companies (API has no "list all AV operators" call).
@@ -49,22 +55,115 @@ def eprint(msg):
     print(msg, file=sys.stderr, flush=True)
 
 
-def get_json(url, tries=3):
+def _addresses(host, port, family):
+    try:
+        return socket.getaddrinfo(host, port, family, socket.SOCK_STREAM)
+    except socket.gaierror:
+        return []
+
+
+def _connect_ipv4_first(address, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, source_address=None):
+    """Try every address together, IPv4 listed first.
+
+    This host publishes two IPv4 addresses and, from here, no IPv6. The old
+    client waited out the timeout on each address in turn, so one try took
+    about 60s on a runner where both addresses were silent. One attempt now
+    has a single budget. A timeout on one address does not add another wait.
+    """
+    host, port = address
+    infos = _addresses(host, port, socket.AF_INET) + _addresses(host, port, socket.AF_INET6)
+    if not infos:
+        raise OSError(f"no address for {host}:{port}")
+    budget = FETCH_TIMEOUT if timeout is None or timeout is socket._GLOBAL_DEFAULT_TIMEOUT else timeout
+    winner = {}
+    errors = []
+    lock = threading.Lock()
+
+    def try_one(info):
+        _family, socktype, proto, _canon, sockaddr = info
+        sock = socket.socket(info[0], socktype, proto)
+        try:
+            sock.settimeout(budget)
+            if source_address:
+                sock.bind(source_address)
+            sock.connect(sockaddr)
+        except OSError as exc:
+            sock.close()
+            with lock:
+                errors.append((sockaddr[0], exc))
+            eprint(f"connect {sockaddr[0]} failed: {exc}")
+            return
+        with lock:
+            if "sock" in winner:
+                sock.close()
+                return
+            winner["sock"] = sock
+            winner["addr"] = sockaddr[0]
+        eprint(f"connected {sockaddr[0]}")
+
+    threads = [threading.Thread(target=try_one, args=(info,), daemon=True) for info in infos]
+    for thread in threads:
+        thread.start()
+    deadline = time.monotonic() + budget
+    while time.monotonic() < deadline:
+        if "sock" in winner:
+            return winner["sock"]
+        if errors and all(not thread.is_alive() for thread in threads):
+            break
+        time.sleep(0.05)
+    if "sock" in winner:
+        return winner["sock"]
+    if errors:
+        raise errors[-1][1]
+    raise TimeoutError("timed out")
+
+
+class _PreferredHTTPSConnection(http.client.HTTPSConnection):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._create_connection = _connect_ipv4_first
+
+
+class _PreferredHTTPSHandler(urllib.request.HTTPSHandler):
+    def https_open(self, req):
+        return self.do_open(_PreferredHTTPSConnection, req, context=self._context)
+
+
+_OPENER = urllib.request.build_opener(_PreferredHTTPSHandler)
+
+
+def _retry_pause(attempt):
+    # attempt is 1-based count of failures so far: 2s, 4s, 8s, 16s, then 30s.
+    return min(30, 2 ** attempt)
+
+
+def get_json(url, tries=FETCH_TRIES, timeout=FETCH_TIMEOUT, opener=None):
+    fetch = (opener or _OPENER).open
     last = None
     for i in range(tries):
+        started = time.monotonic()
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
-            with urllib.request.urlopen(req, timeout=30) as r:
-                if r.status != 200:
-                    raise SourceError(f"HTTP {r.status} for {url}")
-                ctype = r.headers.get("Content-Type", "")
-                body = r.read()
-            if "json" not in ctype:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": UA,
+                "Accept": ACCEPT,
+                "Accept-Language": "en-US,en;q=0.9",
+            })
+            with fetch(req, timeout=timeout) as response:
+                status = getattr(response, "status", None) or response.getcode()
+                if status != 200:
+                    raise SourceError(f"HTTP {status} for {url}")
+                ctype = response.headers.get("Content-Type", "")
+                body = response.read()
+            if "json" not in ctype.lower():
                 raise SourceError(f"Unexpected content-type {ctype!r} for {url} (site format may have changed)")
             return json.loads(body)
-        except (SourceError, ValueError, OSError) as e:
-            last = e
-            time.sleep(2 * (i + 1))
+        except (SourceError, ValueError, OSError, urllib.error.URLError) as exc:
+            last = exc
+            spent = time.monotonic() - started
+            eprint(f"fetch attempt {i + 1}/{tries} failed in {spent:.1f}s: {exc}")
+            if i + 1 >= tries:
+                break
+            time.sleep(_retry_pause(i + 1))
     raise SourceError(f"Fetch failed after {tries} tries: {url}: {last}")
 
 

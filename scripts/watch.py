@@ -98,6 +98,7 @@ def run_watch(cfg, run_check, monotonic, sleep):
     report_20 = None
     report_ok = None
     report_err = None
+    full_error = None
     stopped = "duration"
 
     while True:
@@ -132,6 +133,18 @@ def run_watch(cfg, run_check, monotonic, sleep):
             saved = _read_bytes(cfg["status"])
             if saved:
                 good_status = saved
+        if code == 1 and mode == "full" and saw_success:
+            # The all-operators pass is optional for this run. Tesla counts
+            # already written stay publishable, and this does not count as a
+            # checker failure for the issue or the chain.
+            full_error = str(report.get("error") or "full operator check failed")
+            eprint("full operator check failed; keeping Tesla data: " + full_error[:300])
+            elapsed = monotonic() - began
+            pause = cfg["interval"] - elapsed
+            remaining = deadline - monotonic()
+            if pause > 0 and remaining > 0:
+                sleep(min(pause, remaining))
+            continue
         if code == 10:
             write_json(cfg["report"], report)
             stopped = "tesla_change"
@@ -199,6 +212,7 @@ def run_watch(cfg, run_check, monotonic, sleep):
         "full_every_seconds": cfg["full_every"],
         "deploy": "now" if stopped == "tesla_change" else "end",
         "minute_deploys": False,
+        "full_check_error": full_error,
     }
     write_json(cfg["result"], result)
     print(json.dumps(result, indent=2))

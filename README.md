@@ -19,7 +19,8 @@ Live site, once Pages is on: <https://derekbeau1.github.io/tx-robotaxi-tracker/>
 GitHub cron stays at `*/5 * * * *` as a backup restart. After a run publishes, it requests the next run with `workflow_dispatch`. The concurrency group `tx-robotaxi-check` still lets only one run execute. If a run is already waiting, another is not requested, and extra queued runs are cancelled so at most one is pending. The chain stops when the checker has failed 3 runs in a row; the cron backup is what starts it again. Inside a run, `scripts/watch.py` still loops for 270 seconds:
 
 - Tesla-only (`check.py --tesla-only`) about every 10 seconds. If a fetch takes longer than 10 seconds, the next one waits until it finishes. That 10-second pace is best effort.
-- Every operator, once per run, and never more often than every 5 minutes. The first look in a run is Tesla-only, so a new Tesla vehicle is not stuck behind the slower full list.
+- Every operator, once per run, and never more often than every 5 minutes. The first look in a run is Tesla-only, so a new Tesla vehicle is not stuck behind the slower full list. If that all-operators pass fails and a Tesla check in the same run succeeded, the run still publishes the Tesla data and does not count as a checker failure.
+- Each DMV request waits up to 45 seconds and is retried up to 5 times. IPv4 is tried before IPv6, because runners were burning a full timeout on IPv6 and then another on IPv4.
 - After a failed fetch, the loop waits 30 seconds, then 60. A third failure in a row stops the loop early instead of hammering TxDMV. That whole run still counts as one failure toward the 3-run error issue.
 - Exit `10` (a new Tesla vehicle or Tesla company) stops the loop immediately. The workflow commits, opens the issue (same duplicate check as before), sends one phone push, and deploys without waiting out the 4.5 minutes.
 

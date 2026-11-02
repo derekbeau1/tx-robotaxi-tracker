@@ -17,8 +17,9 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    # The loop itself stops around 4.5 minutes. The cap is for a slow full fetch.
-    timeout-minutes: 15
+    # The loop itself stops around 4.5 minutes. A dead DMV host can spend
+    # several minutes in retries before the 3-strike stop, so the cap is higher.
+    timeout-minutes: 22
     permissions:
       contents: write
       issues: write
@@ -42,7 +43,7 @@ jobs:
       # run would stack and can get rate-limited.
       - name: Watch the DMV list
         id: checker
-        timeout-minutes: 12
+        timeout-minutes: 18
         run: |
           set -euo pipefail
           python3 -u scripts/watch.py \
@@ -323,6 +324,8 @@ jobs:
                   watch.get("stopped"), watch.get("deploy")))
               lines.append("- Loop elapsed: %ss of %ss (Tesla interval %ss, best effort)" % (
                   watch.get("elapsed_seconds"), watch.get("duration_seconds"), watch.get("interval_seconds")))
+              if watch.get("full_check_error"):
+                  lines.append("- Full operator check failed; Tesla data was kept: %s" % str(watch.get("full_check_error"))[:500])
           lines.append("- Operators found: %s" % report.get("operators_found", "n/a"))
           if report.get("error"):
               lines.append("- Error: %s" % str(report.get("error"))[:500])
