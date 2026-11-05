@@ -1,10 +1,10 @@
 {
-  "last_checked": "2026-11-04T23:15:53+00:00",
+  "last_checked": "2026-11-05T00:01:27+00:00",
   "last_result": "no new entries",
   "tesla_counts": {
-    "model_y": 631,
-    "cybercab": 573,
-    "other": 40,
+    "model_y": 0,
+    "cybercab": 0,
+    "other": 1244,
     "total": 1244
   },
   "operators_found": 1,
