@@ -1,12 +1,12 @@
 {
-  "last_checked": "2026-11-09T18:04:20+00:00",
-  "last_result": "new non-Tesla entries only",
+  "last_checked": "2026-11-09T18:37:18+00:00",
+  "last_result": "no new entries",
   "tesla_counts": {
     "model_y": 0,
     "cybercab": 0,
     "other": 1282,
     "total": 1282
   },
-  "operators_found": 15,
+  "operators_found": 1,
   "source": "https://txmccs.txdmv.gov/automated-vehicles/"
 }
