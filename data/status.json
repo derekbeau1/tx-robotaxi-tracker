@@ -12,7 +12,7 @@
     "tesla_authorization": "AV8313426653583"
   },
   "source": "https://txmccs.txdmv.gov/automated-vehicles/",
-  "last_attempt": "2026-11-05T21:15:48+00:00",
+  "last_attempt": "2026-11-09T01:18:19+00:00",
   "change_log": [
     {
       "checked_at": "2026-10-27T17:33:28+00:00",
@@ -1436,22 +1436,317 @@
       "removed_vehicles_by_model": {},
       "removed_vehicles_sample": [],
       "removed_vehicles_sample_omitted": 0
+    },
+    {
+      "checked_at": "2026-11-09T01:18:19+00:00",
+      "result": "NEW TESLA ENTRIES",
+      "exit_code": 10,
+      "tesla_counts_after": {
+        "model_y": 0,
+        "cybercab": 0,
+        "other": 1282,
+        "total": 1282
+      },
+      "new_tesla_model_y_or_cybercab": {
+        "count": 0,
+        "by_model": {}
+      },
+      "new_tesla_model_y_or_cybercab_sample": [],
+      "new_tesla_model_y_or_cybercab_sample_omitted": 0,
+      "new_tesla_other_or_unspecified_model": 38,
+      "new_tesla_other_sample": [
+        {
+          "vin": "7SAYGDEE0TF587335",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE2TF582797",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF596524",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF608561",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF583676",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF607389",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE9TF559971",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF559965",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF607403",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF582744",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE7TF598431",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE0TF582801",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF559975",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF584896",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE0TF563259",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE0TF563360",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE0TF563343",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF585524",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF584267",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE0TF561088",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE4TF541264",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF559989",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEEXTF561020",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE9TF563163",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE7TF563307",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF554426",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF563191",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE2TF585523",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF563208",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE9TF563261",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE6TF541265",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE5TF585211",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEEXTF559946",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE8TF583677",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE3TF560016",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE1TF586470",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE1TF561021",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "7SAYGDEE7TF541338",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        }
+      ],
+      "new_companies": [],
+      "new_non_tesla": {
+        "count": 0,
+        "by_operator_model": {}
+      },
+      "removed_vehicles_count": 0,
+      "removed_vehicles_by_model": {},
+      "removed_vehicles_sample": [],
+      "removed_vehicles_sample_omitted": 0
     }
   ],
   "last_attempt_status": "ok",
   "last_error": null,
-  "last_checked": "2026-11-05T21:15:48+00:00",
+  "last_checked": "2026-11-09T01:18:19+00:00",
   "tesla_counts": {
     "model_y": 0,
     "cybercab": 0,
-    "other": 1244,
-    "total": 1244
+    "other": 1282,
+    "total": 1282
   },
   "change_since_baseline": {
     "model_y": -507,
     "cybercab": -463,
-    "other": 1244,
-    "total": 274
+    "other": 1282,
+    "total": 312
   },
   "tesla_operators": [
     {
@@ -1463,11 +1758,11 @@
       "counts": {
         "model_y": 0,
         "cybercab": 0,
-        "other": 1244,
-        "total": 1244
+        "other": 1282,
+        "total": 1282
       },
       "by_model_year": {
-        "None None None": 1244
+        "None None None": 1282
       }
     }
   ],
@@ -1481,7 +1776,7 @@
       "vehicle_count": 1285,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/07ebbc43-ae5b-42ca-a712-d9d5ce5b3516/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "81edcff1-8a6e-4ed0-be1f-60668515e223",
@@ -1489,10 +1784,10 @@
       "av_auth_number": "AV8313426653583",
       "status": "authorized",
       "authorized_at": "2026-05-14T20:25:27.417266+00:00",
-      "vehicle_count": 1244,
+      "vehicle_count": 1282,
       "tesla": true,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:15:48+00:00"
+      "as_of": "2026-11-09T01:18:19+00:00"
     },
     {
       "id": "fd52bbf8-a94f-409e-a821-28dacd4d8bdd",
@@ -1503,7 +1798,7 @@
       "vehicle_count": 344,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/fd52bbf8-a94f-409e-a821-28dacd4d8bdd/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "e2ec8d3a-51c0-47fd-8172-49b1ca545ad3",
@@ -1514,7 +1809,7 @@
       "vehicle_count": 91,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/e2ec8d3a-51c0-47fd-8172-49b1ca545ad3/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "c7252bd3-9b9a-4dfe-98e2-db205010f93c",
@@ -1525,7 +1820,7 @@
       "vehicle_count": 64,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/c7252bd3-9b9a-4dfe-98e2-db205010f93c/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "b5672c35-0996-4364-8ac7-080ea0333d2c",
@@ -1536,7 +1831,7 @@
       "vehicle_count": 63,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/b5672c35-0996-4364-8ac7-080ea0333d2c/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "a073be41-e321-4074-9515-01279a9f36d7",
@@ -1547,7 +1842,7 @@
       "vehicle_count": 47,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/a073be41-e321-4074-9515-01279a9f36d7/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "51e635a0-1649-419d-86b4-76a3107e3240",
@@ -1558,7 +1853,7 @@
       "vehicle_count": 36,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/51e635a0-1649-419d-86b4-76a3107e3240/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "fcf5ffd0-e90d-4aa6-9afa-6c002c2cf511",
@@ -1569,7 +1864,7 @@
       "vehicle_count": 32,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/fcf5ffd0-e90d-4aa6-9afa-6c002c2cf511/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "f77bbbc9-8f1f-4272-861f-8bec46cd0587",
@@ -1580,7 +1875,7 @@
       "vehicle_count": 31,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/f77bbbc9-8f1f-4272-861f-8bec46cd0587/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "2fb8d9e8-5add-4c1e-b746-58494b3661d8",
@@ -1591,7 +1886,7 @@
       "vehicle_count": 22,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/2fb8d9e8-5add-4c1e-b746-58494b3661d8/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "a984e056-d778-416b-af45-03188239089c",
@@ -1602,7 +1897,7 @@
       "vehicle_count": 13,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/a984e056-d778-416b-af45-03188239089c/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "43448d49-5ea9-4769-afcb-ffc5ca3f3cbb",
@@ -1613,7 +1908,7 @@
       "vehicle_count": 13,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/43448d49-5ea9-4769-afcb-ffc5ca3f3cbb/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "2f512c5f-7c48-4dec-b978-6b51cb9473e5",
@@ -1624,7 +1919,7 @@
       "vehicle_count": 12,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/2f512c5f-7c48-4dec-b978-6b51cb9473e5/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     },
     {
       "id": "625de9a0-ac22-4bdd-80d5-fbe638bcd74f",
@@ -1635,8 +1930,8 @@
       "vehicle_count": 7,
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/625de9a0-ac22-4bdd-80d5-fbe638bcd74f/automated-motor-vehicles",
-      "as_of": "2026-11-05T21:11:34+00:00"
+      "as_of": "2026-11-09T01:16:22+00:00"
     }
   ],
-  "last_result": "no new entries"
+  "last_result": "NEW TESLA ENTRIES"
 }

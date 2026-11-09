@@ -3,7 +3,19 @@
   "last_error": null,
   "last_failure_at": null,
   "error_alert_sent": false,
-  "pending_tesla_alert": null,
+  "pending_tesla_alert": {
+    "alert_id": "tesla-20261109T0118190000-01ba4719c80b",
+    "title": "New Tesla robotaxi(s) on Texas DMV list: +0 Model Y, +0 Cybercab",
+    "body": "The Texas DMV automated vehicle list has a new Tesla entry.\n\n- **Model Y:** +0\n- **Cybercab:** +0\n- **Other Tesla vehicles:** +38\n- **New Tesla companies:** 0\n- **Tesla total after this check:** 1282 (Model Y 0, Cybercab 0, other 1282)\n- **Change since the Oct 24, 2026 baseline:** Model Y -507, Cybercab -463, total +312\n\n### Other new Tesla vehicles (38)\n\n| VIN | Year | Make | Model | Operator |\n| --- | --- | --- | --- | --- |\n| 7SAYGDEE0TF587335 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE2TF582797 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE4TF596524 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF608561 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF583676 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE4TF607389 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE9TF559971 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF559965 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF607403 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF582744 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE7TF598431 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE0TF582801 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF559975 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF584896 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE0TF563259 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE0TF563360 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE0TF563343 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE4TF585524 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF584267 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE0TF561088 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE4TF541264 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF559989 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEEXTF561020 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE9TF563163 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE7TF563307 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF554426 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF563191 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE2TF585523 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF563208 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE9TF563261 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF541265 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF585211 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEEXTF559946 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE8TF583677 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF560016 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE1TF586470 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE1TF561021 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE7TF541338 |  |  |  | Tesla Robotaxi, LLC |\n\nTesla's vehicle list: https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles\n\nSource: https://txmccs.txdmv.gov/automated-vehicles/\nChecked at: 2026-11-09T01:18:19+00:00\nPrevious snapshot: 2026-11-09T01:17:32+00:00\nWorkflow run: https://github.com/derekbeau1/tx-robotaxi-tracker/actions/runs/42544658498\n\n<!-- alert-id: tesla-20261109T0118190000-01ba4719c80b -->\n",
+    "model_y_added": 0,
+    "cybercab_added": 0,
+    "totals": {
+      "model_y": 0,
+      "cybercab": 0,
+      "other": 1282,
+      "total": 1282
+    }
+  },
   "pending_error_alert": null,
   "ntfy_sent_alert_id": "tesla-20261101T2134010000-01ba4719c80b"
 }
