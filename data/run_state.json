@@ -3,7 +3,19 @@
   "last_error": null,
   "last_failure_at": null,
   "error_alert_sent": false,
-  "pending_tesla_alert": null,
+  "pending_tesla_alert": {
+    "alert_id": "tesla-20261110T2315340000-01ba4719c80b",
+    "title": "New Tesla robotaxi(s) on Texas DMV list: +0 Model Y, +0 Cybercab",
+    "body": "The Texas DMV automated vehicle list has a new Tesla entry.\n\n- **Model Y:** +0\n- **Cybercab:** +0\n- **Other Tesla vehicles:** +20\n- **New Tesla companies:** 0\n- **Tesla total after this check:** 1302 (Model Y 0, Cybercab 0, other 1302)\n- **Change since the Oct 24, 2026 baseline:** Model Y -507, Cybercab -463, total +332\n\n### Other new Tesla vehicles (20)\n\n| VIN | Year | Make | Model | Operator |\n| --- | --- | --- | --- | --- |\n| 7SAYGDEEXTF598956 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE8TF609503 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE2TF601848 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE1TF597288 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE8TF576017 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE8TF575997 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF609063 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF607367 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF599223 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE2TF607455 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE4TF607277 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF598677 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF607464 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE8TF609064 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE6TF609497 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE7TF563355 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE4TF607313 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE3TF607352 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE5TF607319 |  |  |  | Tesla Robotaxi, LLC |\n| 7SAYGDEE1TF601498 |  |  |  | Tesla Robotaxi, LLC |\n\nTesla's vehicle list: https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles\n\nSource: https://txmccs.txdmv.gov/automated-vehicles/\nChecked at: 2026-11-10T23:15:34+00:00\nPrevious snapshot: 2026-11-10T23:14:46+00:00\nWorkflow run: https://github.com/derekbeau1/tx-robotaxi-tracker/actions/runs/42921301179\n\n<!-- alert-id: tesla-20261110T2315340000-01ba4719c80b -->\n",
+    "model_y_added": 0,
+    "cybercab_added": 0,
+    "totals": {
+      "model_y": 0,
+      "cybercab": 0,
+      "other": 1302,
+      "total": 1302
+    }
+  },
   "pending_error_alert": null,
   "ntfy_sent_alert_id": "tesla-20261109T0118190000-01ba4719c80b"
 }
