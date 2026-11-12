@@ -3,7 +3,19 @@
   "last_error": null,
   "last_failure_at": null,
   "error_alert_sent": false,
-  "pending_tesla_alert": null,
+  "pending_tesla_alert": {
+    "alert_id": "tesla-20261112T0015190000-01ba4719c80b",
+    "title": "New Tesla robotaxi(s) on Texas DMV list: +0 Model Y, +0 Cybercab",
+    "body": "The Texas DMV automated vehicle list has a new Tesla entry.\n\n- **Model Y:** +0\n- **Cybercab:** +0\n- **Other Tesla vehicles:** +1\n- **New Tesla companies:** 0\n- **Tesla total after this check:** 1303 (Model Y 0, Cybercab 0, other 1303)\n- **Change since the Oct 24, 2026 baseline:** Model Y -507, Cybercab -463, total +333\n\n### Other new Tesla vehicles (1)\n\n| VIN | Year | Make | Model | Operator |\n| --- | --- | --- | --- | --- |\n| 7SAYGDEE8TF541302 |  |  |  | Tesla Robotaxi, LLC |\n\nTesla's vehicle list: https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles\n\nSource: https://txmccs.txdmv.gov/automated-vehicles/\nChecked at: 2026-11-12T00:15:19+00:00\nPrevious snapshot: 2026-11-12T00:14:30+00:00\nWorkflow run: https://github.com/derekbeau1/tx-robotaxi-tracker/actions/runs/43125405935\n\n<!-- alert-id: tesla-20261112T0015190000-01ba4719c80b -->\n",
+    "model_y_added": 0,
+    "cybercab_added": 0,
+    "totals": {
+      "model_y": 0,
+      "cybercab": 0,
+      "other": 1303,
+      "total": 1303
+    }
+  },
   "pending_error_alert": null,
   "ntfy_sent_alert_id": "tesla-20261110T2315340000-01ba4719c80b"
 }
