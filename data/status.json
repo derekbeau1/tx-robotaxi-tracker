@@ -12,7 +12,7 @@
     "tesla_authorization": "AV8313426653583"
   },
   "source": "https://txmccs.txdmv.gov/automated-vehicles/",
-  "last_attempt": "2026-11-16T17:46:48+00:00",
+  "last_attempt": "2026-11-17T21:41:09+00:00",
   "change_log": [
     {
       "checked_at": "2026-10-27T17:33:28+00:00",
@@ -2106,22 +2106,331 @@
       "removed_vehicles_by_model": {},
       "removed_vehicles_sample": [],
       "removed_vehicles_sample_omitted": 0
+    },
+    {
+      "checked_at": "2026-11-17T21:41:09+00:00",
+      "result": "NEW TESLA ENTRIES",
+      "exit_code": 10,
+      "tesla_counts_after": {
+        "model_y": 0,
+        "cybercab": 0,
+        "other": 1507,
+        "total": 1507
+      },
+      "new_tesla_model_y_or_cybercab": {
+        "count": 0,
+        "by_model": {}
+      },
+      "new_tesla_model_y_or_cybercab_sample": [],
+      "new_tesla_model_y_or_cybercab_sample_omitted": 0,
+      "new_tesla_other_or_unspecified_model": 201,
+      "new_tesla_other_sample": [
+        {
+          "vin": "7SAYGDEE4TF554385",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU2VA004650",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA004744",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA004730",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA004680",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004606",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004590",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004492",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004564",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004449",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004404",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA004619",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA004541",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU7VA004563",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU7VA004496",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU7VA004448",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA004604",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA004537",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA004523",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA004425",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA004486",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU3VA004625",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU3VA004558",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU2VA004485",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU7VA004594",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004542",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004489",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004475",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA004413",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004578",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004516",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004483",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004435",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004418",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA004399",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA004538",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA004524",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA004443",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA004412",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU7VA004546",
+          "year": null,
+          "make": null,
+          "model": null,
+          "operator": "Tesla Robotaxi, LLC"
+        }
+      ],
+      "new_companies": [],
+      "new_non_tesla": {
+        "count": 0,
+        "by_operator_model": {}
+      },
+      "removed_vehicles_count": 0,
+      "removed_vehicles_by_model": {},
+      "removed_vehicles_sample": [],
+      "removed_vehicles_sample_omitted": 0
     }
   ],
   "last_attempt_status": "ok",
   "last_error": null,
-  "last_checked": "2026-11-16T17:46:48+00:00",
+  "last_checked": "2026-11-17T21:41:09+00:00",
   "tesla_counts": {
     "model_y": 0,
     "cybercab": 0,
-    "other": 1306,
-    "total": 1306
+    "other": 1507,
+    "total": 1507
   },
   "change_since_baseline": {
     "model_y": -507,
     "cybercab": -463,
-    "other": 1306,
-    "total": 336
+    "other": 1507,
+    "total": 537
   },
   "tesla_operators": [
     {
@@ -2133,15 +2442,26 @@
       "counts": {
         "model_y": 0,
         "cybercab": 0,
-        "other": 1306,
-        "total": 1306
+        "other": 1507,
+        "total": 1507
       },
       "by_model_year": {
-        "None None None": 1306
+        "None None None": 1507
       }
     }
   ],
   "operators": [
+    {
+      "id": "81edcff1-8a6e-4ed0-be1f-60668515e223",
+      "name": "Tesla Robotaxi, LLC",
+      "av_auth_number": "AV8313426653583",
+      "status": "authorized",
+      "authorized_at": "2026-05-14T20:25:27.417266+00:00",
+      "vehicle_count": 1507,
+      "tesla": true,
+      "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
+      "as_of": "2026-11-17T21:41:09+00:00"
+    },
     {
       "id": "07ebbc43-ae5b-42ca-a712-d9d5ce5b3516",
       "name": "Waymo LLC",
@@ -2152,17 +2472,6 @@
       "tesla": false,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/07ebbc43-ae5b-42ca-a712-d9d5ce5b3516/automated-motor-vehicles",
       "as_of": "2026-11-16T17:42:34+00:00"
-    },
-    {
-      "id": "81edcff1-8a6e-4ed0-be1f-60668515e223",
-      "name": "Tesla Robotaxi, LLC",
-      "av_auth_number": "AV8313426653583",
-      "status": "authorized",
-      "authorized_at": "2026-05-14T20:25:27.417266+00:00",
-      "vehicle_count": 1306,
-      "tesla": true,
-      "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
-      "as_of": "2026-11-16T17:46:48+00:00"
     },
     {
       "id": "fd52bbf8-a94f-409e-a821-28dacd4d8bdd",
@@ -2308,5 +2617,5 @@
       "as_of": "2026-11-16T17:42:34+00:00"
     }
   ],
-  "last_result": "no new entries"
+  "last_result": "NEW TESLA ENTRIES"
 }
