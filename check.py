@@ -269,6 +269,214 @@ def tesla_counts(companies):
     return out
 
 
+NHTSA_URL = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/"
+NHTSA_BATCH = 50
+DEFAULT_VIN_MODELS = os.path.join(HERE, "data", "vin_models.json")
+
+
+def _clean(value):
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _norm_year(value):
+    text = _clean(value)
+    if not text:
+        return None
+    if text.isdigit():
+        return int(text)
+    return text
+
+
+def _norm_model(value):
+    text = _clean(value)
+    return text or None
+
+
+def load_vin_models(path):
+    if not path or not os.path.isfile(path):
+        return {}
+    try:
+        with open(path, encoding="utf-8") as handle:
+            data = json.load(handle)
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {str(vin).upper(): entry for vin, entry in data.items() if isinstance(entry, dict)}
+
+
+def _cache_entry(model, year, make, source):
+    model = _norm_model(model)
+    if not model:
+        return None
+    make_text = _clean(make) or "Tesla"
+    return {
+        "model": model,
+        "year": _norm_year(year),
+        "make": make_text.title(),
+        "source": source or "cache",
+    }
+
+
+def _remember(cache, vin, model, year, make, source):
+    entry = _cache_entry(model, year, make, source)
+    if not entry:
+        return
+    if cache.get(vin) != entry:
+        cache[vin] = entry
+
+
+def _apply_cached(vehicle, entry):
+    vehicle["model"] = entry.get("model")
+    if entry.get("year") is not None:
+        vehicle["year"] = entry["year"]
+    if entry.get("make"):
+        vehicle["make"] = entry["make"]
+
+
+def decode_vins_nhtsa(vins, tries=3, timeout=FETCH_TIMEOUT):
+    """Return ({vin: {model, year, make}}, error_text). A batch failure is not fatal."""
+    found = {}
+    errors = []
+    cleaned = [str(vin).upper() for vin in vins if vin]
+    for start in range(0, len(cleaned), NHTSA_BATCH):
+        chunk = cleaned[start:start + NHTSA_BATCH]
+        last = None
+        for attempt in range(tries):
+            try:
+                found.update(_decode_nhtsa_batch(chunk, timeout))
+                last = None
+                break
+            except (OSError, ValueError, urllib.error.URLError) as exc:
+                last = exc
+                eprint(f"nhtsa batch {start // NHTSA_BATCH + 1} attempt {attempt + 1}/{tries} failed: {exc}")
+                if attempt + 1 < tries:
+                    time.sleep(min(30, 2 ** (attempt + 1)))
+        if last is not None:
+            errors.append(f"{chunk[0]}..{chunk[-1]}: {last}")
+    return found, "; ".join(errors[:3])
+
+
+def _decode_nhtsa_batch(vins, timeout):
+    payload = urllib.parse.urlencode({"format": "json", "data": ";".join(vins)}).encode()
+    req = urllib.request.Request(NHTSA_URL, data=payload, headers={
+        "User-Agent": UA,
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+    })
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        body = json.loads(response.read().decode("utf-8", "replace"))
+    if not isinstance(body, dict) or not isinstance(body.get("Results"), list):
+        raise ValueError("NHTSA response missing Results")
+    found = {}
+    for row in body["Results"]:
+        if not isinstance(row, dict):
+            continue
+        vin = _clean(row.get("VIN")).upper()
+        model = _norm_model(row.get("Model"))
+        if not vin or not model:
+            continue
+        found[vin] = {"model": model, "year": _norm_year(row.get("ModelYear")), "make": row.get("Make") or "Tesla"}
+    return found
+
+
+def apply_vin_models(companies, cache, decode=None):
+    """Fill blank Tesla model fields. DMV values win. Cache next. NHTSA for the rest.
+
+    `decode` is optional and returns (mapping, error_text). The default calls NHTSA.
+    """
+    stats = {"dmv": 0, "cache": 0, "nhtsa": 0, "unresolved": 0, "nhtsa_error": None}
+    missing = []
+    vehicles = []
+    for company in companies.values():
+        if not is_tesla(company.get("name")):
+            continue
+        for vin, vehicle in company.get("vehicles", {}).items():
+            vin = str(vin).upper()
+            vehicle["vin"] = vin
+            vehicles.append(vehicle)
+            dmv_model = _norm_model(vehicle.get("model"))
+            cached = cache.get(vin) if isinstance(cache.get(vin), dict) else None
+            if dmv_model:
+                _remember(cache, vin, dmv_model, vehicle.get("year"), vehicle.get("make") or "Tesla", "dmv")
+                vehicle["model"] = dmv_model
+                if _norm_year(vehicle.get("year")) is None and cached and cached.get("year") is not None:
+                    vehicle["year"] = cached["year"]
+                stats["dmv"] += 1
+                continue
+            if cached and _norm_model(cached.get("model")):
+                _apply_cached(vehicle, cached)
+                stats["cache"] += 1
+                continue
+            missing.append(vin)
+    if not missing:
+        return stats
+    decoder = decode if decode is not None else decode_vins_nhtsa
+    found, error = {}, None
+    try:
+        decoded = decoder(missing)
+        if isinstance(decoded, tuple):
+            found, error = decoded
+        else:
+            found = decoded or {}
+    except Exception as exc:
+        error = str(exc)
+        found = {}
+    if error:
+        stats["nhtsa_error"] = error
+        eprint("nhtsa decode incomplete: " + error[:300])
+    for vehicle in vehicles:
+        vin = vehicle.get("vin")
+        if _norm_model(vehicle.get("model")) or vin not in missing:
+            continue
+        row = found.get(vin) if isinstance(found, dict) else None
+        if not isinstance(row, dict) or not _norm_model(row.get("model")):
+            stats["unresolved"] += 1
+            continue
+        _remember(cache, vin, row.get("model"), row.get("year"), row.get("make") or "Tesla", "nhtsa")
+        _apply_cached(vehicle, cache[vin])
+        stats["nhtsa"] += 1
+    return stats
+
+
+def model_year_counts(companies):
+    out = {"model_y": {}, "cybercab": {}}
+    for company in companies.values():
+        if not is_tesla(company.get("name")):
+            continue
+        for vehicle in company.get("vehicles", {}).values():
+            bucket = model_bucket(vehicle.get("model"))
+            if bucket not in out:
+                continue
+            year = vehicle.get("year")
+            if year is None or year == "":
+                continue
+            key = str(year)
+            out[bucket][key] = out[bucket].get(key, 0) + 1
+    return {bucket: dict(sorted(years.items())) for bucket, years in out.items()}
+
+
+def save_vin_models(path, cache):
+    payload = {vin: cache[vin] for vin in sorted(cache)}
+    text = json.dumps(payload, indent=2) + "\n"
+    if os.path.isfile(path):
+        with open(path, encoding="utf-8") as handle:
+            if handle.read() == text:
+                return False
+    parent = os.path.dirname(path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as handle:
+        handle.write(text)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return True
+
+
 def sample_vehicles(records, limit=VIN_SAMPLE_MAX):
     out = []
     for v in (records or [])[:limit]:
@@ -313,6 +521,7 @@ def write_status(path, now, code, companies=None, refreshed_ids=(), report=None,
     st["last_error"] = None
     st["last_checked"] = now
     counts = tesla_counts(companies)
+    counts["model_years"] = model_year_counts(companies)
     if "baseline" not in st:
         base_src = prev_snapshot if prev_snapshot else {"checked_at": now, "companies": companies}
         st["baseline"] = dict(tesla_counts(base_src.get("companies", {})), as_of=base_src.get("checked_at"))
@@ -369,11 +578,13 @@ def main():
     ap.add_argument("--no-save", action="store_true", help="don't update snapshot")
     ap.add_argument("--tesla-only", action="store_true", help="only discover Tesla-named operators")
     ap.add_argument("--status", default=DEFAULT_STATUS, help="dashboard status file (written unless --no-save)")
+    ap.add_argument("--vin-models", default=DEFAULT_VIN_MODELS, help="VIN to model cache; DMV model fields win when present")
     a = ap.parse_args()
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     try:
         cur = collect(a.tesla_only)
     except Exception as e:
+        # Snapshot and the VIN cache stay as they were. Status keeps the last good counts.
         if not a.no_save:
             try:
                 write_status(a.status, now, 1, error=str(e))
@@ -382,6 +593,13 @@ def main():
         print(json.dumps({"status": "error", "checked_at": now, "error": str(e),
                           "note": "Fetch/format failure - NOT treated as 'no change'; snapshot left untouched."}, indent=2))
         return 1
+
+    vin_cache = load_vin_models(a.vin_models)
+    try:
+        vin_stats = apply_vin_models(cur, vin_cache)
+    except Exception as exc:
+        vin_stats = {"dmv": 0, "cache": 0, "nhtsa": 0, "unresolved": 0, "nhtsa_error": str(exc)}
+        eprint("vin model fill failed; keeping DMV fields: " + str(exc)[:300])
 
     prev = None
     if os.path.exists(a.snapshot):
@@ -396,7 +614,8 @@ def main():
     totals = {c["name"]: c["vehicle_count"] for c in cur.values()}
 
     report = {"status": "ok", "checked_at": now, "source": "https://txmccs.txdmv.gov/automated-vehicles/",
-              "operators_found": len(cur), "vehicle_totals_by_operator": totals, "tesla_current": tesla_current}
+              "operators_found": len(cur), "vehicle_totals_by_operator": totals, "tesla_current": tesla_current,
+              "vin_models": vin_stats}
     code = 0
     if prev is None:
         report["baseline"] = True
@@ -446,6 +665,10 @@ def main():
                 if cid not in saved and not is_tesla(c.get("name")):
                     saved[cid] = c
         write_json_atomic(a.snapshot, {"checked_at": now, "companies": saved}, indent=None)
+        try:
+            save_vin_models(a.vin_models, vin_cache)
+        except Exception as exc:
+            report["vin_models_file_error"] = str(exc)
         try:
             write_status(a.status, now, code, companies=saved, refreshed_ids=refreshed, report=report, prev_snapshot=prev)
         except Exception as e:

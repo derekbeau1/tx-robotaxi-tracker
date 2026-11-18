@@ -143,7 +143,7 @@ jobs:
 
       - name: Keep unchanged vehicle files out of git
         if: steps.decide.outputs.commit_data != 'true'
-        run: git checkout -- data/snapshot.json data/status.json || true
+        run: git checkout -- data/snapshot.json data/status.json data/vin_models.json || true
 
       - name: Commit snapshot, heartbeat, or failure state
         if: steps.decide.outputs.commit_any == 'true'
@@ -157,7 +157,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ "$COMMIT_DATA" = "true" ]; then
-            git add -- data/snapshot.json data/status.json
+            git add -- data/snapshot.json data/status.json data/vin_models.json
           fi
           if [ "$COMMIT_HEARTBEAT" = "true" ]; then
             git add -- data/last_checked.json

@@ -161,6 +161,7 @@
     overflow-wrap: anywhere;
   }
   .delta { margin: 0.2rem 0 0; font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .years { margin: 0.3rem 0 0; color: var(--muted); font-size: 16px; line-height: 1.3; }
   .up { color: var(--up); font-weight: 700; }
   .down { color: var(--down); font-weight: 700; }
   .flat { color: var(--muted); }
@@ -453,6 +454,14 @@
         children.push(el("p", { class: "delta " + deltaClass(card[2]) }, [
           formatDelta(card[2]) + " since " + label
         ]));
+      }
+      var yearKey = card[0] === "Model Y" ? "model_y" : (card[0] === "Cybercab" ? "cybercab" : "");
+      var yearMap = yearKey && counts.model_years ? counts.model_years[yearKey] : null;
+      if (yearMap) {
+        var yearBits = Object.keys(yearMap).sort().map(function (year) {
+          return year + ": " + countText(yearMap[year]);
+        });
+        if (yearBits.length) children.push(el("p", { class: "years" }, [yearBits.join(" · ")]));
       }
       if (card[0] === "Tesla total" && counts.other) {
         children.push(el("p", { class: "sub" }, [countText(counts.other) + " other Tesla vehicles are included in the total."]));
