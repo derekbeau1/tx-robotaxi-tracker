@@ -431,6 +431,12 @@
     "make": "Tesla",
     "source": "NHTSA vPIC"
   },
+  "5YJAJEEU0VA004632": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
   "5YJAJEEU0VA004680": {
     "model": "Cybercab",
     "year": 2027,
@@ -850,6 +856,36 @@
     "year": 2027,
     "make": "Tesla",
     "source": "NHTSA vPIC"
+  },
+  "5YJAJEEU1VA004767": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU1VA004784": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU1VA004803": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU1VA004820": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU1VA004834": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
   },
   "5YJAJEEU2TA001468": {
     "model": "Cybercab",
@@ -1289,6 +1325,12 @@
     "make": "Tesla",
     "source": "NHTSA vPIC"
   },
+  "5YJAJEEU2VA004762": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
   "5YJAJEEU3TA002449": {
     "model": "Cybercab",
     "year": 2026,
@@ -1715,6 +1757,36 @@
     "make": "Tesla",
     "source": "NHTSA vPIC"
   },
+  "5YJAJEEU3VA004768": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU3VA004818": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU3VA004835": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU3VA004849": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU3VA004852": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
   "5YJAJEEU4TA001682": {
     "model": "Cybercab",
     "year": 2026,
@@ -2123,6 +2195,30 @@
     "make": "Tesla",
     "source": "NHTSA vPIC"
   },
+  "5YJAJEEU4VA004679": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU4VA004682": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU4VA004732": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU4VA004763": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
   "5YJAJEEU5TA002405": {
     "model": "Cybercab",
     "year": 2026,
@@ -2524,6 +2620,54 @@
     "year": 2027,
     "make": "Tesla",
     "source": "NHTSA vPIC"
+  },
+  "5YJAJEEU5VA004643": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004674": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004710": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004786": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004805": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004819": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004836": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU5VA004853": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
   },
   "5YJAJEEU6TA001442": {
     "model": "Cybercab",
@@ -2951,6 +3095,36 @@
     "make": "Tesla",
     "source": "NHTSA vPIC"
   },
+  "5YJAJEEU6VA004697": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU6VA004747": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU6VA004750": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU6VA004764": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU6VA004800": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
   "5YJAJEEU7TA002406": {
     "model": "Cybercab",
     "year": 2026,
@@ -3322,6 +3496,48 @@
     "year": 2027,
     "make": "Tesla",
     "source": "NHTSA vPIC"
+  },
+  "5YJAJEEU7VA004644": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU7VA004675": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU7VA004711": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU7VA004725": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU7VA004742": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU7VA004806": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU7VA004837": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
   },
   "5YJAJEEU8TA001670": {
     "model": "Cybercab",
@@ -3791,6 +4007,12 @@
     "make": "Tesla",
     "source": "NHTSA vPIC"
   },
+  "5YJAJEEU8VA004765": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
   "5YJAJEEU9TA001385": {
     "model": "Cybercab",
     "year": 2026,
@@ -4198,6 +4420,54 @@
     "year": 2027,
     "make": "Tesla",
     "source": "NHTSA vPIC"
+  },
+  "5YJAJEEU9VA004645": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004662": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004676": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004709": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004712": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004726": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004743": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEU9VA004838": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
   },
   "5YJAJEEUXTA001878": {
     "model": "Cybercab",
@@ -4636,6 +4906,30 @@
     "year": 2027,
     "make": "Tesla",
     "source": "NHTSA vPIC"
+  },
+  "5YJAJEEUXVA004749": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEUXVA004816": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEUXVA004833": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
+  },
+  "5YJAJEEUXVA004850": {
+    "model": "Cybercab",
+    "year": 2027,
+    "make": "Tesla",
+    "source": "nhtsa"
   },
   "7SAYGDEE0TF541293": {
     "model": "Model Y",

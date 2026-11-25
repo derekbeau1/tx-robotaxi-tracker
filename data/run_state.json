@@ -3,7 +3,28 @@
   "last_error": null,
   "last_failure_at": null,
   "error_alert_sent": false,
-  "pending_tesla_alert": null,
+  "pending_tesla_alert": {
+    "alert_id": "tesla-20261125T0342510000-af97b7f7f378",
+    "title": "New Tesla robotaxi(s) on Texas DMV list: +0 Model Y, +49 Cybercab",
+    "body": "The Texas DMV automated vehicle list has a new Tesla entry.\n\n- **Model Y:** +0\n- **Cybercab:** +49\n- **Other Tesla vehicles:** +0\n- **New Tesla companies:** 0\n- **Tesla total after this check:** 1556 (Model Y 734, Cybercab 822, other 0)\n- **Change since the Oct 24, 2026 baseline:** Model Y +227, Cybercab +359, total +586\n\n### New Model Y and Cybercab vehicles (49)\n\n| VIN | Year | Make | Model | Operator |\n| --- | --- | --- | --- | --- |\n| 5YJAJEEUXVA004749 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004838 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004837 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004806 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU6VA004750 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004853 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004819 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004805 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004786 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU4VA004682 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU3VA004852 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU3VA004835 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU3VA004818 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU1VA004820 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU1VA004803 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU1VA004784 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU0VA004632 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEUXVA004850 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEUXVA004816 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004743 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004726 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004712 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004709 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004662 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU8VA004765 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004725 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004711 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004644 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU6VA004800 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU6VA004764 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU6VA004747 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU6VA004697 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004836 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004710 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU4VA004763 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU4VA004732 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU4VA004679 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU3VA004849 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU3VA004768 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU2VA004762 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU1VA004834 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU1VA004767 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEUXVA004833 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004676 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU9VA004645 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004742 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU7VA004675 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004674 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n| 5YJAJEEU5VA004643 | 2027 | Tesla | Cybercab | Tesla Robotaxi, LLC |\n\nTesla's vehicle list: https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles\n\nSource: https://txmccs.txdmv.gov/automated-vehicles/\nChecked at: 2026-11-25T03:42:51+00:00\nPrevious snapshot: 2026-11-25T03:41:58+00:00\nWorkflow run: https://github.com/derekbeau1/tx-robotaxi-tracker/actions/runs/45541574173\n\n<!-- alert-id: tesla-20261125T0342510000-af97b7f7f378 -->\n",
+    "model_y_added": 0,
+    "cybercab_added": 49,
+    "totals": {
+      "model_y": 734,
+      "cybercab": 822,
+      "other": 0,
+      "total": 1556,
+      "model_years": {
+        "model_y": {
+          "2026": 734
+        },
+        "cybercab": {
+          "2026": 573,
+          "2027": 249
+        }
+      }
+    }
+  },
   "pending_error_alert": null,
   "ntfy_sent_alert_id": "tesla-20261117T2141090000-01ba4719c80b"
 }
