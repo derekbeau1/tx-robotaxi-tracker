@@ -1,18 +1,18 @@
 {
-  "last_checked": "2026-11-26T19:10:04+00:00",
-  "last_result": "no new entries",
+  "last_checked": "2026-11-26T19:34:44+00:00",
+  "last_result": "NEW TESLA ENTRIES",
   "tesla_counts": {
     "model_y": 734,
-    "cybercab": 822,
+    "cybercab": 1107,
     "other": 0,
-    "total": 1556,
+    "total": 1841,
     "model_years": {
       "model_y": {
         "2026": 734
       },
       "cybercab": {
         "2026": 573,
-        "2027": 249
+        "2027": 534
       }
     }
   },

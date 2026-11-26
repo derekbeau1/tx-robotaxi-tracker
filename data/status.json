@@ -12,7 +12,7 @@
     "tesla_authorization": "AV8313426653583"
   },
   "source": "https://txmccs.txdmv.gov/automated-vehicles/",
-  "last_attempt": "2026-11-25T19:42:19+00:00",
+  "last_attempt": "2026-11-26T19:34:44+00:00",
   "change_log": [
     {
       "checked_at": "2026-10-27T17:33:28+00:00",
@@ -3008,31 +3008,351 @@
       "removed_vehicles_by_model": {},
       "removed_vehicles_sample": [],
       "removed_vehicles_sample_omitted": 0
+    },
+    {
+      "checked_at": "2026-11-26T19:34:44+00:00",
+      "result": "NEW TESLA ENTRIES",
+      "exit_code": 10,
+      "tesla_counts_after": {
+        "model_y": 734,
+        "cybercab": 1107,
+        "other": 0,
+        "total": 1841,
+        "model_years": {
+          "model_y": {
+            "2026": 734
+          },
+          "cybercab": {
+            "2026": 573,
+            "2027": 534
+          }
+        }
+      },
+      "new_tesla_model_y_or_cybercab": {
+        "count": 285,
+        "by_model": {
+          "2027 Tesla Cybercab": 285
+        }
+      },
+      "new_tesla_model_y_or_cybercab_sample": [
+        {
+          "vin": "5YJAJEEUXVA005271",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA005187",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA005186",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU7VA005227",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA005249",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA005171",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU6VA005137",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU5VA005341",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU5VA005226",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA005363",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA005315",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA005248",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA005203",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA005136",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU4VA005119",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU3VA005340",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU3VA005225",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU2VA005362",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU2VA005314",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU2VA005295",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU1VA005272",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA005294",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA005151",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA005120",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU0VA005103",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA005268",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA005240",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEUXVA005223",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005360",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005357",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005312",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005293",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005245",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005200",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005195",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005150",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005116",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005102",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU9VA005097",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        },
+        {
+          "vin": "5YJAJEEU8VA005334",
+          "year": 2027,
+          "make": "Tesla",
+          "model": "Cybercab",
+          "operator": "Tesla Robotaxi, LLC"
+        }
+      ],
+      "new_tesla_model_y_or_cybercab_sample_omitted": 245,
+      "new_tesla_other_or_unspecified_model": 0,
+      "new_tesla_other_sample": [],
+      "new_companies": [],
+      "new_non_tesla": {
+        "count": 0,
+        "by_operator_model": {}
+      },
+      "removed_vehicles_count": 0,
+      "removed_vehicles_by_model": {},
+      "removed_vehicles_sample": [],
+      "removed_vehicles_sample_omitted": 0
     }
   ],
   "last_attempt_status": "ok",
   "last_error": null,
-  "last_checked": "2026-11-25T19:42:19+00:00",
+  "last_checked": "2026-11-26T19:34:44+00:00",
   "tesla_counts": {
     "model_y": 734,
-    "cybercab": 822,
+    "cybercab": 1107,
     "other": 0,
-    "total": 1556,
+    "total": 1841,
     "model_years": {
       "model_y": {
         "2026": 734
       },
       "cybercab": {
         "2026": 573,
-        "2027": 249
+        "2027": 534
       }
     }
   },
   "change_since_baseline": {
     "model_y": 227,
-    "cybercab": 359,
+    "cybercab": 644,
     "other": 0,
-    "total": 586
+    "total": 871
   },
   "tesla_operators": [
     {
@@ -3043,14 +3363,14 @@
       "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
       "counts": {
         "model_y": 734,
-        "cybercab": 822,
+        "cybercab": 1107,
         "other": 0,
-        "total": 1556
+        "total": 1841
       },
       "by_model_year": {
         "2026 Tesla Cybercab": 573,
         "2026 Tesla Model Y": 734,
-        "2027 Tesla Cybercab": 249
+        "2027 Tesla Cybercab": 534
       }
     }
   ],
@@ -3061,10 +3381,10 @@
       "av_auth_number": "AV8313426653583",
       "status": "authorized",
       "authorized_at": "2026-05-14T20:25:27.417266+00:00",
-      "vehicle_count": 1556,
+      "vehicle_count": 1841,
       "tesla": true,
       "page": "https://txmccs.txdmv.gov/truckstop/companies/81edcff1-8a6e-4ed0-be1f-60668515e223/automated-motor-vehicles",
-      "as_of": "2026-11-25T19:42:19+00:00"
+      "as_of": "2026-11-26T19:34:44+00:00"
     },
     {
       "id": "07ebbc43-ae5b-42ca-a712-d9d5ce5b3516",
@@ -3221,5 +3541,5 @@
       "as_of": "2026-11-25T19:38:06+00:00"
     }
   ],
-  "last_result": "no new entries"
+  "last_result": "NEW TESLA ENTRIES"
 }
