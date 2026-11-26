@@ -1,7 +1,7 @@
 {
-  "consecutive_failures": 0,
-  "last_error": null,
-  "last_failure_at": null,
+  "consecutive_failures": 1,
+  "last_error": "Company 81edcff1-8a6e-4ed0-be1f-60668515e223: got 1785 unique VINs but API says total=1796 (list changed mid-fetch or paging broke); not trusting this run",
+  "last_failure_at": "2026-11-26T19:33:49+00:00",
   "error_alert_sent": false,
   "pending_tesla_alert": null,
   "pending_error_alert": null,
